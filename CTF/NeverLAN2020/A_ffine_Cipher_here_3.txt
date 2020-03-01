@@ -1,0 +1,38 @@
+압축 해제 순
+A ffine cihper here 3.zip의 비번은 NeverLANCTF
+
+1. 폴더명: A ffine Cipher here 3
+	암호화 방식 : Affine
+	풀이 : transposition 암호기때문에 그냥 카이사르 첨부터 끝까지 돌려서 찾을 수 있음
+	password : AfvqPZW0bDMB&HTfzo
+2. 폴더명: Two is better than one
+	암호화 방식 : double transposition cipher
+	풀이 : https://www.dcode.fr/double-transposition-cipher
+	key : NeverLANCTF
+	V78DTNRI6KBD3SDFQ
+3. 폴더명: I'm on the fence with this one
+	암호화 방식 : rail fence
+	풀이 : railfence.py
+4. 폴더명: Salad Time
+	암호화 방식 : keyed caesar
+	풀이 : password: gTLvCGk$HyRVSssXVaSX
+	key : NeverLANCTF
+5. 폴더명 : ROTen
+	암호화 방식 : ROT13
+6. 폴더명 : Viginere Equivent E
+	암호화 방식 : 비즈네르 암호
+	풀이 : 비즈네르 암호에서 우리가 아는건 처음 시작이 'password:' 로 시작한다는것 (plain text : password)
+	EE    password: fI7BPZL#ZN5PI!&pbTXc
+7. 폴더명 : Easy One
+	암호화 방식 : base64
+8. 폴더명 : Message indigestion
+	암호화 방식 : MD5
+	풀이 : 암호문 구글링하니까 MD5라고 나옴
+9. 폴더명 : for SHA dude
+	암호화 방식 : SHA
+	풀이 : SHA 계속 돌려봐도 답 안나와서 Crack Sha 시도
+	https://crackstation.net/
+10. 폴더명 : ONE more TIME
+	암호화 방식 : One time pad 
+	풀이 : http://rumkin.com/tools/cipher/otp.php
+	pad에 쓰이는 내용을 구글링으로 잘 찾아서 decrypt

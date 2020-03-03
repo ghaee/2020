@@ -24,3 +24,24 @@ int solution(vector<int> nums)
 	return answer;
 }
 ```
+
+#### 같은 숫자는 싫어
+```
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+vector<int> solution(vector<int> arr) 
+{
+    vector<int> answer;
+    
+   for(int i = 1; i <= arr.size(); ++i){ //인덱스를 1부터 시작해서
+       if(arr[i-1] != arr[i])			// 이전 인덱스와 비교 후 연속되지않으면 추가
+           answer.push_back(arr[i-1]);
+   }
+   
+
+    return answer;
+}
+```

@@ -1,8 +1,9 @@
+#n번째 소수는 무엇일까?
 import math
 def main():
     primes = []
     count = 2
-    index = 0
+    index = 0 #n번째를 가리킬 인덱스 0부터 시작한다.
     while True:
         isprime = True
         for x in range(2, int(math.sqrt(count) + 1)):

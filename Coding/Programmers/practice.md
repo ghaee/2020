@@ -1,7 +1,7 @@
 **PRACTICE**
 
 #### 폰켓몬
-```
+```c++
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -26,7 +26,7 @@ int solution(vector<int> nums)
 ```
 
 #### 같은 숫자는 싫어
-```
+```c++
 #include <vector>
 #include <iostream>
 

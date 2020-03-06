@@ -1,7 +1,7 @@
 **Hash**
 
 #### 완주하지 못한 선수
-```
+```c++
 #include <string>
 #include <vector>
 #include <algorithm>

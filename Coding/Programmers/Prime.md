@@ -2,7 +2,7 @@
 
 #### 1~n 사이 소수 개수 구하기  
 -에라토스테네스의 체 사용  
-```
+```c++
 #include <string>
 #include <vector>
 #include <cmath>

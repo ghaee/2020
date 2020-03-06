@@ -1,7 +1,7 @@
 **Greedy**
 
 #### 체육복
-```
+```c++
 #include <string>
 #include <vector>
 #include <iostream>

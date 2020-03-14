@@ -72,3 +72,37 @@ int solution(int bridge_length, int weight, vector<int> truck_weights) {
     return answer+bridge_length;
 }
 ```
+
+#### 기능개발
+```c++
+#include <string>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+vector<int> solution(vector<int> progresses, vector<int> speeds) {
+    vector<int> answer;
+    int cnt = 0; 
+    vector<int> complete;
+    int tmp = 0;
+    double days;
+    for(int i = 0; i < progresses.size(); ++i){
+        days = (double)(100-progresses[i]) / speeds[i];
+        complete.push_back(ceil(days));
+    }
+    tmp = complete[0]; //비교 대상을 첫 기능으로 고정
+    for(int i = 0; i < complete.size(); ++i){
+        if(tmp < complete[i]){ //첫 기능보다 오래걸리는 작업나오면
+            answer.push_back(cnt); //여태 카운팅한거 저장하고
+            cnt = 1; //초기화 (i번째 기능 배포했기때문에 1)
+            tmp = complete[i]; //비교 대상을 바꿔준다
+        }else{
+            cnt++;
+        }
+        if(i == complete.size()-1)
+            answer.push_back(cnt);
+    }
+    
+    return answer;
+}
+```

@@ -36,10 +36,10 @@ def get_blog_search_result_pagination_count(search_blog_keyword, display_count):
             blog_pagination_count = 0
         else:
             blog_pagination_total_count = math.ceil(response_body_dict['total'] / int(display_count))
-            # 블로그 글 1000개 넘으면 1000개만 수집하게 됨
+            # 블로그 글 1000개 넘으면
             if blog_pagination_total_count >= 1000:
-                # 밑에 카운트 개수가 포스트 1000개 넘을때 따올 포스팅 수
-                blog_pagination_count = 1000
+                # 500개만 가져옴
+                blog_pagination_count = 500
             else:
                 blog_pagination_count = blog_pagination_total_count
 
@@ -116,4 +116,4 @@ def get_blog_post(search_blog_keyword, display_count, search_result_blog_page_co
     file.close()
 
 if __name__ == '__main__':
-    naver_blog_crawling("파이썬 컨벤션", 100, "sim")
+    naver_blog_crawling("인천 국내 여행", 1, "sim")

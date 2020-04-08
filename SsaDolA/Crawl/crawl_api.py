@@ -38,8 +38,8 @@ def get_blog_search_result_pagination_count(search_blog_keyword, display_count):
             blog_pagination_total_count = math.ceil(response_body_dict['total'] / int(display_count))
             # 블로그 글 1000개 넘으면
             if blog_pagination_total_count >= 1000:
-                # 500개만 가져옴
-                blog_pagination_count = 500
+                # 1000개만 가져옴
+                blog_pagination_count = 1000
             else:
                 blog_pagination_count = blog_pagination_total_count
 
@@ -111,7 +111,12 @@ def get_blog_post(search_blog_keyword, display_count, search_result_blog_page_co
                             print(iter1)
 
                 except:
-                    j += 1
+                    if hasattr(e, 'reason'):
+                        print('We failed to reach a server.')
+                        print('Reason: ', e.reason)
+                    elif hasattr(e, 'code'):
+                        print('The server couldn\'t fulfill the request.')
+                        print('Error code: ', e.code)
 
     file.close()
 

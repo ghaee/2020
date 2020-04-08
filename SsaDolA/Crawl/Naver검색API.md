@@ -18,3 +18,9 @@
 
 아래를 많이 참고히여 crawl_api.py 작성  
 <https://github.com/xotrs/naver-blog-crawler>
+
+4. BeautifulSoup() - lxml
+
+>sudo pip3 install lxml  
+
+먼저 설치해야 python 코드를 실행할 수 있음

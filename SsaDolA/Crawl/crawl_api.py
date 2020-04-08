@@ -81,7 +81,7 @@ def get_blog_post(search_blog_keyword, display_count, search_result_blog_page_co
 
                     get_blog_post_content_soup = BeautifulSoup(get_blog_post_content_text, 'lxml')
 
-                    for link in get_blog_post_content_soup.select('frame#mainFrame'):
+                    for link in get_blog_post_content_soup.select('#mainFrame'):
                         real_blog_post_url = "http://blog.naver.com" + link.get('src')
 
                         get_real_blog_post_content_code = requests.get(real_blog_post_url)
@@ -116,4 +116,4 @@ def get_blog_post(search_blog_keyword, display_count, search_result_blog_page_co
     file.close()
 
 if __name__ == '__main__':
-    naver_blog_crawling("인천 국내 여행", 1, "sim")
+    naver_blog_crawling("파이썬 컨벤션", 100, "sim")

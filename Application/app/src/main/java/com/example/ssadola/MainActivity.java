@@ -180,6 +180,14 @@ public class MainActivity extends AppCompatActivity implements ViewAnimator.View
                 ThemeFragment fragment2 = ThemeFragment.newInstance(primaryColorCanvas);
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment2).commit();
                 return replaceFragment(fragment2, position);
+            case ContentFragment.BOOKMARK:
+                BookmarkFragment fragment3 = BookmarkFragment.newInstance(primaryColorCanvas);
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment3).commit();
+                return replaceFragment(fragment3, position);
+            case ContentFragment.LOGIN:
+                LoginFragment fragment4 = LoginFragment.newInstance(primaryColorCanvas);
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment4).commit();
+                return replaceFragment(fragment4, position);
             default:
                 Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_LONG).show();
                 return replaceFragment(screenShotable, position);

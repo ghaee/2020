@@ -50,7 +50,8 @@ public class LoginFragment extends Fragment implements ScreenShotable {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+
         imageView = rootView.findViewById(R.id.imageView);
         textView = rootView.findViewById(R.id.textView);
         imageView.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
@@ -86,15 +87,18 @@ public class LoginFragment extends Fragment implements ScreenShotable {
 
         });
 
-        email = rootView.findViewById(R.id.et_email);
-        password = rootView.findViewById(R.id.et_pswd);
+        email = rootView.findViewById(R.id.in_email);
+        password = rootView.findViewById(R.id.in_pswd);
+
         sign_in = rootView.findViewById(R.id.btn_signin);
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(),"로그인 중",Toast.LENGTH_LONG).show();
+
             }
         });
+
         sign_up = rootView.findViewById(R.id.btn_signup);
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override

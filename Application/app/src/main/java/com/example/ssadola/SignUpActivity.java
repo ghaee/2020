@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -18,26 +19,49 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 public class SignUpActivity extends AppCompatActivity {
-    private EditText name = findViewById(R.id.et_name);
-    private EditText age = findViewById(R.id.et_age);
-    private EditText sex = findViewById(R.id.et_sex);
-    private EditText email = findViewById(R.id.et_email);
-    private EditText password = findViewById(R.id.et_pswd);
-    private Button sign_in = findViewById(R.id.btn_signup);
+    private EditText name;
+    private EditText age;
+    private EditText sex;
+    private EditText email;
+    private EditText password;
+    private Button btn_clear;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        name = findViewById(R.id.up_name);
+        age = findViewById(R.id.up_age);
+        sex = findViewById(R.id.up_sex);
+        email = findViewById(R.id.up_email);
+        password = findViewById(R.id.up_pswd);
+        btn_clear = findViewById(R.id.btn_signup_compelete);
+
+        btn_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Name = name.getText().toString();
+                String Age = age.getText().toString();
+                String Sex = sex.getText().toString();
+                String Email = email.getText().toString();
+                String Pw = password.getText().toString();
+
+                insertToDB(Name,Age,Sex,Email, Pw);
+            }
+        });
+
     }
 
-    public void insert(View view) {
+    /*public void insert(View view) {
         String Name = name.getText().toString();
+        String Age = age.getText().toString();
+        String Sex = sex.getText().toString();
+        String Email = email.getText().toString();
         String Pw = password.getText().toString();
 
-        insertoToDB(Name, Pw);
-    }
+        insertToDB(Name,Age,Sex,Email, Pw);
+    }*/
 
-    private void insertoToDB(String Id, String Pw) {
+    private void insertToDB(String Name, String Age, String Sex, String Email, String Pw) {
         class InsertData extends AsyncTask<String, Void, String> {
             ProgressDialog loading;
             @Override
@@ -55,11 +79,17 @@ public class SignUpActivity extends AppCompatActivity {
             protected String doInBackground(String... params) {
 
                 try {
-                    String Id = (String) params[0];
-                    String Pw = (String) params[1];
+                    String Name = (String) params[0];
+                    String Age = (String) params[1];
+                    String Sex = (String) params[2];
+                    String Email = (String) params[3];
+                    String Pw = (String) params[4];
 
-                    String link = "http://본인PC IP주소/post.php";
-                    String data = URLEncoder.encode("Id", "UTF-8") + "=" + URLEncoder.encode(Id, "UTF-8");
+                    String link = "http://13.124.83.91/signUP.php";
+                    String data = URLEncoder.encode("Name", "UTF-8") + "=" + URLEncoder.encode(Name, "UTF-8");
+                    data += "&" + URLEncoder.encode("Age", "UTF-8") + "=" + URLEncoder.encode(Age, "UTF-8");
+                    data += "&" + URLEncoder.encode("Sex", "UTF-8") + "=" + URLEncoder.encode(Sex, "UTF-8");
+                    data += "&" + URLEncoder.encode("Email", "UTF-8") + "=" + URLEncoder.encode(Email, "UTF-8");
                     data += "&" + URLEncoder.encode("Pw", "UTF-8") + "=" + URLEncoder.encode(Pw, "UTF-8");
 
                     URL url = new URL(link);
@@ -88,6 +118,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         }
         InsertData task = new InsertData();
-        task.execute(Id, Pw);
+        task.execute(Name,Age,Sex,Email,Pw);
     }
 }

@@ -16,6 +16,7 @@
             android:src="@drawable/good_morning_img">
         </ImageView>
     </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,7 +32,7 @@
             android:textColorHint="#96ffffff"
             android:theme="@style/EditScreenTextInputLayoutStyle">
             <EditText
-                android:id="@+id/et_name"
+                android:id="@+id/up_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="16dp"
@@ -48,7 +49,7 @@
             android:textColorHint="#96ffffff"
             android:theme="@style/EditScreenTextInputLayoutStyle">
             <EditText
-                android:id="@+id/et_age"
+                android:id="@+id/up_age"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="16dp"
@@ -65,7 +66,7 @@
             android:textColorHint="#96ffffff"
             android:theme="@style/EditScreenTextInputLayoutStyle">
             <EditText
-                android:id="@+id/et_sex"
+                android:id="@+id/up_sex"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="16dp"
@@ -82,7 +83,7 @@
             android:textColorHint="#96ffffff"
             android:theme="@style/EditScreenTextInputLayoutStyle">
             <EditText
-                android:id="@+id/et_email"
+                android:id="@+id/up_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="16dp"
@@ -101,7 +102,7 @@
             android:textColorHint="#96ffffff"
             android:theme="@style/EditScreenTextInputLayoutStyle">
             <EditText
-                android:id="@+id/et_pswd"
+                android:id="@+id/up_pswd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="16dp"
@@ -122,12 +123,12 @@
             android:gravity="center"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/btn_signup"
+                android:id="@+id/btn_signup_compelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
                 android:background="@drawable/buttonshapewhitebg"
-                android:text="회원가입"
+                android:text="가입 완료"
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:textColor="#96ffffff"

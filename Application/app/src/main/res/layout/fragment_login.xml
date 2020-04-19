@@ -138,7 +138,7 @@
             android:textColorHint="#96ffffff"
             android:theme="@style/EditScreenTextInputLayoutStyle">
             <EditText
-                android:id="@+id/et_email"
+                android:id="@+id/in_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="16dp"
@@ -157,7 +157,7 @@
             android:textColorHint="#96ffffff"
             android:theme="@style/EditScreenTextInputLayoutStyle">
             <EditText
-                android:id="@+id/et_pswd"
+                android:id="@+id/in_pswd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="16dp"

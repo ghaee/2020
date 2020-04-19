@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SignUpActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCjY4kokK4Y2EcYT7no5T1CaO787UFLM6o"></meta-data>
+            android:value="AIzaSyCjY4kokK4Y2EcYT7no5T1CaO787UFLM6o"/>
 
+        <activity android:name=".SignUpActivity"/>
         <activity android:name=".ResultDetailActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".Splash" />

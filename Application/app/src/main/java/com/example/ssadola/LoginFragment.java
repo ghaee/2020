@@ -1,9 +1,11 @@
 package com.example.ssadola;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,16 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
@@ -94,7 +106,10 @@ public class LoginFragment extends Fragment implements ScreenShotable {
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"로그인 중",Toast.LENGTH_LONG).show();
+                String Email = email.getText().toString();
+                String Pw = password.getText().toString();
+                LoginAsync login = new LoginAsync();
+                login.execute(Email,Pw);
 
             }
         });
@@ -117,5 +132,56 @@ public class LoginFragment extends Fragment implements ScreenShotable {
     @Override
     public Bitmap getBitmap() {
         return null;
+    }
+
+    public class LoginAsync extends AsyncTask<String, Void, String> {
+        ProgressDialog loading;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loading = ProgressDialog.show(getActivity(), "Please Wait", null, true, true);
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            loading.dismiss();
+            Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                String Email = (String) params[0];
+                String Pw = (String) params[1];
+
+                String link = "http://13.124.83.91/login.php";
+                String data = URLEncoder.encode("Email", "UTF-8") + "=" + URLEncoder.encode(Email, "UTF-8");
+                data += "&" + URLEncoder.encode("Pw", "UTF-8") + "=" + URLEncoder.encode(Pw, "UTF-8");
+
+                URL url = new URL(link);
+                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                wr.write(data);
+                wr.flush();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
+                return sb.toString();
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+        }
     }
 }

@@ -13,19 +13,22 @@ if (mysqli_connect_errno($con))
 
 }
 //POST 값을 읽어온다.
-$name=isset($_POST['Name']) ? $_POST['Name'] : ''; 
-$age=isset($_POST['Age']) ? $_POST['Age'] : '';  
-$sex=isset($_POST['Sex']) ? $_POST['Sex'] : ''; 
 $email=isset($_POST['Email']) ? $_POST['Email'] : '';
 $pw=isset($_POST['Pw']) ? $_POST['Pw'] : '';
 
-if ($name !="" and $age !="" and $sex !="" and $email !="" and $pw !=""){   
+if ($email !="" and $pw !=""){   
   
-    $sql="insert into User_Info (u_name,age,sex,u_email,u_pw) values ('$name','$age','$sex','$email','$pw')";  
+    $sql="select if(strcmp(u_pw,'$pw'),0,1) pw_chk from User_Info where u_email = '$email'";  
     $result=mysqli_query($con,$sql);  
 
     if($result){  
-       echo "'$email'을 추가했습니다.";  
+       $row = mysql_fetch_array($result);
+       if(is_null($row[pw_chk])){
+          echo "없는 회원 정보입니다.";
+       } 
+       else{
+        echo "$row[pw_chk]";
+       }
     }  
     else{  
        echo "SQL문 처리중 에러 발생 : "; 

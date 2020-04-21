@@ -1,10 +1,13 @@
 package com.example.ssadola;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +20,21 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
 public class LoginFragment extends Fragment implements ScreenShotable {
+    private static String TAG = "User_Info";
     private View containerView;
     protected ImageView mImageView;
     protected int res;
@@ -94,7 +109,10 @@ public class LoginFragment extends Fragment implements ScreenShotable {
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"로그인 중",Toast.LENGTH_LONG).show();
+                String Email = email.getText().toString();
+                String Pw = password.getText().toString();
+                LoginAsync login = new LoginAsync();
+                login.execute(Email,Pw);
 
             }
         });
@@ -117,5 +135,78 @@ public class LoginFragment extends Fragment implements ScreenShotable {
     @Override
     public Bitmap getBitmap() {
         return null;
+    }
+
+    public class LoginAsync extends AsyncTask<String, Void, String> {
+        ProgressDialog loading;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loading = ProgressDialog.show(getActivity(), "Please Wait", null, true, true);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            loading.dismiss();
+            Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+
+            if (result == null){
+
+                //mTextViewResult.setText(errorString);
+            }
+            else {
+
+                //mJsonString = result;
+                //showResult();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                String Email = (String) params[0];
+                String Pw = (String) params[1];
+
+                String link = "http://13.124.83.91/login.php";
+                //String data = URLEncoder.encode("Email", "UTF-8") + "=" + URLEncoder.encode(Email, "UTF-8");
+                //data += "&" + URLEncoder.encode("Pw", "UTF-8") + "=" + URLEncoder.encode(Pw, "UTF-8");
+                String data = "Email="+Email+"&Pw="+Pw;
+
+                URL url = new URL(link);
+                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.connect();
+
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                wr.write(data);
+                wr.flush();
+                wr.close();
+                int responseStatusCode = conn.getResponseCode();
+                Log.d(TAG, "response code - " + responseStatusCode);
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream =conn.getInputStream();
+                }
+                else{
+                    inputStream = conn.getErrorStream();
+                }
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                reader.close();
+                return sb.toString().trim();
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+        }
     }
 }

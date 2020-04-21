@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -32,6 +34,7 @@ import java.net.URLEncoder;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
 public class LoginFragment extends Fragment implements ScreenShotable {
+    private static String TAG = "User_Info";
     private View containerView;
     protected ImageView mImageView;
     protected int res;
@@ -142,10 +145,20 @@ public class LoginFragment extends Fragment implements ScreenShotable {
             loading = ProgressDialog.show(getActivity(), "Please Wait", null, true, true);
         }
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
             loading.dismiss();
-            Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+
+            if (result == null){
+
+                //mTextViewResult.setText(errorString);
+            }
+            else {
+
+                //mJsonString = result;
+                //showResult();
+            }
         }
 
         @Override
@@ -156,18 +169,30 @@ public class LoginFragment extends Fragment implements ScreenShotable {
                 String Pw = (String) params[1];
 
                 String link = "http://13.124.83.91/login.php";
-                String data = URLEncoder.encode("Email", "UTF-8") + "=" + URLEncoder.encode(Email, "UTF-8");
-                data += "&" + URLEncoder.encode("Pw", "UTF-8") + "=" + URLEncoder.encode(Pw, "UTF-8");
+                //String data = URLEncoder.encode("Email", "UTF-8") + "=" + URLEncoder.encode(Email, "UTF-8");
+                //data += "&" + URLEncoder.encode("Pw", "UTF-8") + "=" + URLEncoder.encode(Pw, "UTF-8");
+                String data = "Email="+Email+"&Pw="+Pw;
 
                 URL url = new URL(link);
                 HttpURLConnection conn = (HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("POST");
-                conn.setDoOutput(true);
-                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                conn.setDoInput(true);
+                conn.connect();
 
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
                 wr.write(data);
                 wr.flush();
-
+                wr.close();
+                int responseStatusCode = conn.getResponseCode();
+                Log.d(TAG, "response code - " + responseStatusCode);
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream =conn.getInputStream();
+                }
+                else{
+                    inputStream = conn.getErrorStream();
+                }
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
                 StringBuilder sb = new StringBuilder();
@@ -176,9 +201,9 @@ public class LoginFragment extends Fragment implements ScreenShotable {
                 // Read Server Response
                 while ((line = reader.readLine()) != null) {
                     sb.append(line);
-                    break;
                 }
-                return sb.toString();
+                reader.close();
+                return sb.toString().trim();
             } catch (Exception e) {
                 return new String("Exception: " + e.getMessage());
             }

@@ -20,6 +20,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +39,7 @@ import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
 public class LoginFragment extends Fragment implements ScreenShotable {
     private static String TAG = "User_Info";
+    private static String TAG_CHK = "pw_chk";
     private View containerView;
     protected ImageView mImageView;
     protected int res;
@@ -148,16 +153,33 @@ public class LoginFragment extends Fragment implements ScreenShotable {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             loading.dismiss();
-            Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
 
             if (result == null){
 
                 //mTextViewResult.setText(errorString);
             }
             else {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONArray jsonArray = jsonObject.getJSONArray("User_Info");
 
-                //mJsonString = result;
-                //showResult();
+                    JSONObject item = jsonArray.getJSONObject(0);
+                    String user = item.getString(TAG_CHK);
+                    //Toast.makeText(getActivity(), user, Toast.LENGTH_LONG).show();
+                    if(user.equals("1")){
+                        //success to login
+                        Intent profile = new Intent(getActivity(),ProfileActivity.class);
+                        startActivity(profile);
+                    }else{
+                        //fail to login
+                        Toast.makeText(getActivity(), "로그인 실패", Toast.LENGTH_LONG).show();
+                        email.setText(null);
+                        password.setText(null);
+                    }
+                } catch (JSONException e) {
+                    Log.d(TAG, "showResult : ", e);
+                }
             }
         }
 

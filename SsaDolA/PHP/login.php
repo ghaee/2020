@@ -18,14 +18,18 @@ $pw=isset($_POST['Pw']) ? $_POST['Pw'] : '';
 
 if ($email !="" and $pw !=""){   
   
-    $sql="select if(strcmp(u_pw,'$pw'),0,1) as pw_chk from User_Info where u_email = '$email'";  
+    $sql="select if(strcmp(u_pw,'$pw'),0,1) as pw_chk, u_name,age,sex,u_email from User_Info where u_email = '$email'";  
     $result=mysqli_query($con,$sql);  
     $data=array();   
     if($result){  
     
       while($row=mysqli_fetch_array($result)){
         array_push($data,
-          array('pw_chk'=>$row['pw_chk']
+          array('pw_chk'=>$row['pw_chk'],
+            'u_name'=>$row['u_name'],
+            'age'=>$row['age'],
+            'sex'=>$row['sex'],
+            'u_email'=>$row['u_email']
         ));
       }
       header('Content-Type: application/json; charset=utf8');

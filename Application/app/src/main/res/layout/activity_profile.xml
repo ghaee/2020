@@ -14,11 +14,19 @@
         android:textSize="40sp">
     </TextView>
     <Button
-        android:id="@+id/btn_edit"
+    android:id="@+id/btn_edit"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="수정"
+    android:layout_alignRight="@+id/tv_profile">
+</Button>
+    <Button
+        android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="수정"
-        android:layout_alignRight="@+id/tv_profile">
+        android:text="로그아웃"
+        android:layout_alignRight="@+id/tv_profile"
+        android:layout_below="@+id/btn_edit">
     </Button>
     <LinearLayout
         android:id="@+id/ll_profile"

@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".StudioActivity"></activity>
+        <activity android:name=".ImageStudioActivity"></activity>
+        <activity android:name=".StudioActivity" />
         <activity android:name=".BookmarkActivity" />
         <activity android:name=".ProfileActivity" />
 
@@ -30,8 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
-
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

@@ -4,21 +4,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -26,27 +34,43 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//key = ebdf40781aa946c6af58a9e4ee3a91c6
+
 public class StudioActivity extends AppCompatActivity {
 
     private static final String TAG_WORK_NM = "WORK_NM";
     private static final String TAG_POTOGRF_PLC_NM= "POTOGRF_PLC_NM";
     private static final String TAG_POTOGRF_YY ="POTOGRF_YY";
 
+    private ProgressDialog progressDialog;
+
+    private static final String open_gg_api_key = "=ebdf40781aa946c6af58a9e4ee3a91c6";
     ArrayList<HashMap<String,String>> mArrayList;
     ListView mListView;
+    MyAdapter myAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studio);
         mListView = findViewById(R.id.listView2);
-
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TextView work_nm = findViewById(R.id.list_work_nm);
+                TextView plc_nm = view.findViewById(R.id.list_plc_nm);
+                Toast.makeText(StudioActivity.this,plc_nm.getText().toString(),Toast.LENGTH_LONG).show();
+                Bundle bundle = new Bundle();
+                bundle.putString( "plc_nm", plc_nm.getText().toString());
+                Intent img = new Intent(StudioActivity.this,ImageStudioActivity.class);
+                img.putExtras(bundle);
+                startActivity(img);
+            }
+        });
         SearchView searchView = findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Toast.makeText(StudioActivity.this,"검색하기",Toast.LENGTH_SHORT).show();
-                ApiExplorer searchAPI = new ApiExplorer();
+                OpenApiExplorer searchAPI = new OpenApiExplorer();
                 searchAPI.execute(query);
                 return true;
             }
@@ -79,6 +103,7 @@ public class StudioActivity extends AppCompatActivity {
                 hashMap.put(TAG_POTOGRF_YY, year);
 
                 mArrayList.add(hashMap);
+
             }
 
         } catch (JSONException e) {
@@ -92,7 +117,8 @@ public class StudioActivity extends AppCompatActivity {
 
         mListView.setAdapter(adapter);
     }
-    class ApiExplorer extends AsyncTask<String, Void, String> {
+
+    class OpenApiExplorer extends AsyncTask<String, Void, String> {
         ProgressDialog loading;
         @Override
         protected void onPreExecute() {
@@ -114,11 +140,11 @@ public class StudioActivity extends AppCompatActivity {
                 String SIGUN_NM = params[0];
 
                 StringBuilder urlBuilder = new StringBuilder("https://openapi.gg.go.kr/PhotographySupport"); /*URL*/
-                urlBuilder.append("?" + URLEncoder.encode("KEY","UTF-8") + "=ebdf40781aa946c6af58a9e4ee3a91c6"); /*Service Key*/
+                urlBuilder.append("?" + URLEncoder.encode("KEY","UTF-8") + open_gg_api_key); /*Service Key*/
                 //urlBuilder.append("&" + URLEncoder.encode("KEY","UTF-8") + "=" + URLEncoder.encode("-", "UTF-8")); /*공공데이터포털에서 받은 인증키*/
                 urlBuilder.append("&" + URLEncoder.encode("Type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*페이지번호*/
                 urlBuilder.append("&" + URLEncoder.encode("pIndex","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*한 페이지 결과 수*/
-                urlBuilder.append("&" + URLEncoder.encode("pSize","UTF-8") + "=" + URLEncoder.encode("5", "UTF-8"));
+                urlBuilder.append("&" + URLEncoder.encode("pSize","UTF-8") + "=" + URLEncoder.encode("20", "UTF-8"));
                 urlBuilder.append("&" + URLEncoder.encode("SIGUN_NM","UTF-8") + "=" + URLEncoder.encode(SIGUN_NM, "UTF-8"));
                 URL url = new URL(urlBuilder.toString());
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -144,5 +170,7 @@ public class StudioActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }
 

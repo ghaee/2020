@@ -41,35 +41,21 @@ public class StudioActivity extends AppCompatActivity {
     private static final String TAG_POTOGRF_PLC_NM= "POTOGRF_PLC_NM";
     private static final String TAG_POTOGRF_YY ="POTOGRF_YY";
 
-    private ProgressDialog progressDialog;
 
     private static final String open_gg_api_key = "=ebdf40781aa946c6af58a9e4ee3a91c6";
     ArrayList<HashMap<String,String>> mArrayList;
     ListView mListView;
-    MyAdapter myAdapter;
+    String sigun_nm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studio);
-        mListView = findViewById(R.id.listView2);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TextView work_nm = findViewById(R.id.list_work_nm);
-                TextView plc_nm = view.findViewById(R.id.list_plc_nm);
-                Toast.makeText(StudioActivity.this,plc_nm.getText().toString(),Toast.LENGTH_LONG).show();
-                Bundle bundle = new Bundle();
-                bundle.putString( "plc_nm", plc_nm.getText().toString());
-                Intent img = new Intent(StudioActivity.this,ImageStudioActivity.class);
-                img.putExtras(bundle);
-                startActivity(img);
-            }
-        });
+
         SearchView searchView = findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //Toast.makeText(StudioActivity.this,"검색하기",Toast.LENGTH_SHORT).show();
+                sigun_nm = query;
                 OpenApiExplorer searchAPI = new OpenApiExplorer();
                 searchAPI.execute(query);
                 return true;
@@ -78,6 +64,22 @@ public class StudioActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+        mListView = findViewById(R.id.listView2);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView work_nm = view.findViewById(R.id.list_work_nm);
+                TextView plc_nm = view.findViewById(R.id.list_plc_nm);
+                //Toast.makeText(StudioActivity.this,plc_nm.getText().toString(),Toast.LENGTH_LONG).show();
+                Bundle bundle = new Bundle();
+                bundle.putString( "work_nm", work_nm.getText().toString());
+                bundle.putString( "plc_nm", plc_nm.getText().toString());
+                bundle.putString( "sigun_nm", sigun_nm);
+                Intent img = new Intent(StudioActivity.this,ImageStudioActivity.class);
+                img.putExtras(bundle);
+                startActivity(img);
             }
         });
 

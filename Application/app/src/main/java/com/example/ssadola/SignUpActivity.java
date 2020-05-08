@@ -22,6 +22,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 public class SignUpActivity extends AppCompatActivity {
+    static String pub_ip = "http://52.79.226.131/";
     private EditText name;
     private EditText age;
     private EditText sex;
@@ -78,7 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String Email = (String) params[3];
                 String Pw = (String) params[4];
 
-                String link = "http://13.124.83.91/signUP.php";
+                String link = pub_ip+"signUP.php";
                 String data = URLEncoder.encode("Name", "UTF-8") + "=" + URLEncoder.encode(Name, "UTF-8");
                 data += "&" + URLEncoder.encode("Age", "UTF-8") + "=" + URLEncoder.encode(Age, "UTF-8");
                 data += "&" + URLEncoder.encode("Sex", "UTF-8") + "=" + URLEncoder.encode(Sex, "UTF-8");

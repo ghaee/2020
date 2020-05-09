@@ -21,12 +21,16 @@ public class BookmarkActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
+
         arrayList = GetLoginData();
+
         if(arrayList == null){
             Toast.makeText(BookmarkActivity.this,"로그인 먼저 해주세요",Toast.LENGTH_LONG).show();
             Intent login = new Intent(BookmarkActivity.this,LoginActivity.class);
             startActivity(login);
-
+            finish();
+        }else{
+            //db에서 즐찾한 여행지 정보들 가져와서 보여주기
         }
     }
 

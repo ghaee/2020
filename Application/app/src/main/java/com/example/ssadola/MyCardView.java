@@ -58,7 +58,7 @@ public class MyCardView extends CardView {
         View v = li.inflate(R.layout.item_cardview, this, true);
 
         cardView = (CardView) findViewById(R.id.cardview);
-        linearLayout = (LinearLayout) findViewById(R.id.layout);
+        //linearLayout = (LinearLayout) findViewById(R.id.layout);
         imageView = (ImageView) findViewById(R.id.image);
         textView = (TextView) findViewById(R.id.title);
 

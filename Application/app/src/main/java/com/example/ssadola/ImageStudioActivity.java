@@ -90,7 +90,7 @@ public class ImageStudioActivity extends AppCompatActivity implements OnMapReady
         mapFragment.getMapAsync(this);
         getImgAPI getimg = new getImgAPI();
         getimg.execute();
-        ImageButton btn_heart=findViewById(R.id.btn_heart);
+        final ImageButton btn_heart=findViewById(R.id.btn_heart);
         btn_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,12 +104,12 @@ public class ImageStudioActivity extends AppCompatActivity implements OnMapReady
                     //DB에 여행지 정보 저장하기
                     //로그인 정보->chkArrayList
                     // u_id / theme /addr /work_nm 보내서 저장
+
                     HashMap<String, String> LoginhashMap = chkArrayList.get(0);
                     String mu_email = LoginhashMap.get(TAG_EMAIL);
                     String mtheme = "studio";
                     String maddr = sigun_nm + plc_nm;
                     String mwork_nm = work_nm;
-
                     try {
                         InsertBookmark(mu_email, mtheme, maddr, mwork_nm);
                     } catch (UnsupportedEncodingException e) {

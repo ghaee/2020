@@ -49,11 +49,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         MyCardView cardView = holder.cardView;
         cardView.setData(item);*/
         HashMap<String,String> BookmarkItem = bookmarkList.get(position);
-        holder.tv_writer.setText(BookmarkItem.get(TAG_EMAIL)); //작성자
-        Log.e("[writer]", BookmarkItem.get("writer"));
-        holder.tv_title.setText(BookmarkItem.get(TAG_THEME)); //제목
-        holder.tv_content.setText(BookmarkItem.get(TAG_ADDR)); //내용 일부
-        holder.tv_date.setText(BookmarkItem.get(TAG_WOKR)); //작성일
+        holder.tv_writer.setText(BookmarkItem.get(TAG_EMAIL));
+
+        holder.tv_title.setText(BookmarkItem.get(TAG_THEME));
+        holder.tv_content.setText(BookmarkItem.get(TAG_ADDR));
+        holder.tv_date.setText(BookmarkItem.get(TAG_WOKR));
 
 
         /*cardView.setUserActionListener(new MyCardView.UserActionListener() {

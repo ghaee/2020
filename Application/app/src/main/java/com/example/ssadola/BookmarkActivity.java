@@ -59,7 +59,7 @@ public class BookmarkActivity extends AppCompatActivity {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(mLinearLayoutManager);
         arrayList = GetLoginData();
-        test = findViewById(R.id.ttt);
+
         if(arrayList == null){
             Toast.makeText(BookmarkActivity.this,"로그인 먼저 해주세요",Toast.LENGTH_LONG).show();
             Intent login = new Intent(BookmarkActivity.this,LoginActivity.class);
@@ -177,7 +177,6 @@ public class BookmarkActivity extends AppCompatActivity {
                 // Read Server Response
                 while ((line = reader.readLine()) != null) {
                     sb.append(line);
-                    break;
                 }
                 reader.close();
                 return sb.toString();

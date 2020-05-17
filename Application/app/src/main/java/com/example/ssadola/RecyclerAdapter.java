@@ -28,7 +28,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private static final String TAG_THEME = "theme";
     private static final String TAG_ADDR = "addr";
     private static final String TAG_WOKR = "work_nm";
-
+    private static final String TAG_COUNT = "count";
 
 
     public RecyclerAdapter(Context context, ArrayList<HashMap<String,String>> bookmarkList) {
@@ -49,12 +49,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         MyCardView cardView = holder.cardView;
         cardView.setData(item);*/
         HashMap<String,String> BookmarkItem = bookmarkList.get(position);
-        holder.tv_writer.setText(BookmarkItem.get(TAG_EMAIL));
-
-        holder.tv_title.setText(BookmarkItem.get(TAG_THEME));
-        holder.tv_content.setText(BookmarkItem.get(TAG_ADDR));
-        holder.tv_date.setText(BookmarkItem.get(TAG_WOKR));
-
+        holder.tv_title.setText(BookmarkItem.get(TAG_WOKR));
+        holder.tv_theme.setText(BookmarkItem.get(TAG_THEME));
+        holder.tv_address.setText(BookmarkItem.get(TAG_ADDR));
+        holder.tv_email.setText(BookmarkItem.get(TAG_EMAIL));
+        holder.tv_count.setText(BookmarkItem.get(TAG_COUNT));
 
         /*cardView.setUserActionListener(new MyCardView.UserActionListener() {
             @Override
@@ -76,17 +75,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_title;
+        TextView tv_count;
         TextView tv_date;
-        TextView tv_content;
-        TextView tv_writer;
+        TextView tv_address;
+        TextView tv_theme;
+        TextView tv_email;
         CardView cv;
 
         public ViewHolder(View v) {
             super(v);
+            tv_theme = (TextView) v.findViewById(R.id.tv_theme);
             tv_title = (TextView) v.findViewById(R.id.tv_title);
-            tv_date = (TextView) v.findViewById(R.id.tv_date);
-            tv_content = (TextView) v.findViewById(R.id.tv_content);
-            tv_writer = (TextView) v.findViewById(R.id.tv_writer);
+            tv_count = (TextView) v.findViewById(R.id.tv_count);
+            tv_address = (TextView) v.findViewById(R.id.tv_address);
+            tv_email = v.findViewById(R.id.tv_writer);
             cv = (CardView) v.findViewById(R.id.cardview);
         }
     }

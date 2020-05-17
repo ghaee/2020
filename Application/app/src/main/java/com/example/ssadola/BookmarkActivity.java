@@ -46,7 +46,7 @@ public class BookmarkActivity extends AppCompatActivity {
     private static final String TAG_THEME = "theme";
     private static final String TAG_ADDR = "addr";
     private static final String TAG_WOKR = "work_nm";
-
+    private static final String TAG_COUNT = "count";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +124,7 @@ public class BookmarkActivity extends AppCompatActivity {
                         hashMap.put(TAG_THEME,i_theme);
                         hashMap.put(TAG_ADDR,i_addr);
                         hashMap.put(TAG_WOKR,i_worknm);
+                        hashMap.put(TAG_COUNT,Integer.toString(i+1));
 
                         BookmarkList.add(hashMap);
                     }

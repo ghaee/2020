@@ -50,10 +50,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         cardView.setData(item);*/
         HashMap<String,String> BookmarkItem = bookmarkList.get(position);
         holder.tv_title.setText(BookmarkItem.get(TAG_WOKR));
-        holder.tv_theme.setText(BookmarkItem.get(TAG_THEME));
-        holder.tv_address.setText(BookmarkItem.get(TAG_ADDR));
-        holder.tv_email.setText(BookmarkItem.get(TAG_EMAIL));
-        holder.tv_count.setText(BookmarkItem.get(TAG_COUNT));
+        //holder.tv_theme.setText(BookmarkItem.get(TAG_THEME));
+        //holder.tv_address.setText(BookmarkItem.get(TAG_ADDR));
+        //holder.tv_email.setText(BookmarkItem.get(TAG_EMAIL));
+        //holder.tv_count.setText(BookmarkItem.get(TAG_COUNT));
 
         /*cardView.setUserActionListener(new MyCardView.UserActionListener() {
             @Override
@@ -84,11 +84,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public ViewHolder(View v) {
             super(v);
-            tv_theme = (TextView) v.findViewById(R.id.tv_theme);
+            //tv_theme = (TextView) v.findViewById(R.id.tv_theme);
             tv_title = (TextView) v.findViewById(R.id.tv_title);
-            tv_count = (TextView) v.findViewById(R.id.tv_count);
-            tv_address = (TextView) v.findViewById(R.id.tv_address);
-            tv_email = v.findViewById(R.id.tv_writer);
+            //tv_count = (TextView) v.findViewById(R.id.tv_count);
+            //tv_address = (TextView) v.findViewById(R.id.tv_address);
+            //tv_email = v.findViewById(R.id.tv_writer);
             cv = (CardView) v.findViewById(R.id.cardview);
         }
     }

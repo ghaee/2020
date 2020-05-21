@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".ImageStudioActivity" />
         <activity android:name=".StudioActivity" />
         <activity android:name=".BookmarkActivity" />
@@ -33,6 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".MainActivity" />
     </application>
 

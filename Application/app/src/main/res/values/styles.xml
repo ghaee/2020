@@ -23,6 +23,8 @@
         <item name="android:progressDrawable">@drawable/rating_star</item>
         <item name="android:minHeight">24dip</item> <item name="android:maxHeight">24dip</item>
     </style>
-
+    <style name="ButtonStyle" parent="Base.Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
 
 </resources>

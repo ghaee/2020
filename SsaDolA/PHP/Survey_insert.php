@@ -71,6 +71,5 @@ if (!$android){
 </html>
 <?php
 }
-
    
 ?>

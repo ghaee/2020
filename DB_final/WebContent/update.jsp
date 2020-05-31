@@ -27,7 +27,7 @@ try{
 	}
 	
 }catch(Exception e){
-	 out.println("DB 연결 실패");
+	 out.println(e.toString());
 }%>
 <!-- <form method="post" action="update_verify.jsp"> 
 …

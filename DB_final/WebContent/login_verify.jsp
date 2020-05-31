@@ -17,7 +17,7 @@ try{
 
 	Statement stmt;
 
-	String mySQL="select s_id from student where s_id='" + userID + "'and s_pwd='" + userPassword + "'";
+	String mySQL="select s_id from students where s_id='" + userID + "'and s_pwd='" + userPassword + "'";
 	stmt = myConn.createStatement();
 	stmt.executeUpdate(mySQL);
 	ResultSet result = stmt.executeQuery(mySQL);
@@ -35,6 +35,6 @@ try{
 	stmt.close();
 	myConn.close(); 
 }catch (Exception e){
-	 out.println("DB 연결 실패");
+	 out.println(e.toString());
 }
 %>

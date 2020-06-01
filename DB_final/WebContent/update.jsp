@@ -2,7 +2,7 @@
 <%@ page import="java.sql.*" %>
 <html> <head><title>수강신청 사용자 정보 수정</title></head>
 <body> <%@ include file="top.jsp" %>
-회원 정보
+학생 정보
    <table width = "100%" border = "1">
       <tr>
             <td>학번</td>
@@ -57,7 +57,12 @@ try{
     
     if(myConn != null) try { myConn.close(); } catch(SQLException ex) {}
 }%></table>
-<form method="post" action="update_verify.jsp"> 
+<form method="post" action="update_verify.jsp">
+	학번 : <input type = "text" name = "new_id"/><br/>
+	비밀번호 : <input type = "text" name = "new_pwd"/><br/>
+	이름 : <input type = "text" name = "new_name"/><br/>
+	주소 : <input type = "text" name = "new_addr"/><br/>
+	전공 : <input type = "text" name = "new_major"/><br/>
 	<input type = "submit" name = "btn_update" value = "정보 수정">
 </form>
 </body>

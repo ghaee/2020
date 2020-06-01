@@ -14,6 +14,6 @@ String major=request.getParameter("new_major");
 <%=name %>
 <%=address %>
 <%=major %>
-
-</body></html>
+</body>
+</html>
 

@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,7 +34,7 @@ import yalantis.com.sidemenu.util.ViewAnimator;
 
 
 public class CustomFragment extends Fragment implements ScreenShotable {
-    static String pub_ip = "http://52.79.226.131/";
+    static String pub_ip = "http://15.165.95.187/";
     private View containerView;
     protected ImageView mImageView;
     protected int res;
@@ -78,6 +79,7 @@ public class CustomFragment extends Fragment implements ScreenShotable {
             public void onClick(View v) {
                 GetRating();
                 Intent result = new Intent(getActivity(),ResultActivity.class);
+                result.putExtra("result",  sb.toString());
                 startActivity(result);
             }
         });
@@ -158,7 +160,8 @@ public class CustomFragment extends Fragment implements ScreenShotable {
 
         try {
             mThread.join();
-            Toast.makeText(getActivity(),sb.toString(),Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(),sb.toString(),Toast.LENGTH_LONG).show();
+
         }catch ( InterruptedException e){
             e.printStackTrace();
         }

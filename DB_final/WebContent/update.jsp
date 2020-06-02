@@ -6,10 +6,14 @@
    <table width = "100%" border = "1">
       <tr>
             <td>학번</td>
+
             <td>비밀번호</td>
+
             <td>전공</td>
+
             <td>이름</td>
-            <td>주소</td>
+
+            <td>이메일</td>
       </tr>
 <%
 if (session_id==null) response.sendRedirect("login.jsp");
@@ -58,11 +62,8 @@ try{
     if(myConn != null) try { myConn.close(); } catch(SQLException ex) {}
 }%></table>
 <form method="post" action="update_verify.jsp">
-	학번 : <input type = "text" name = "new_id"/><br/>
-	비밀번호 : <input type = "text" name = "new_pwd"/><br/>
-	이름 : <input type = "text" name = "new_name"/><br/>
-	주소 : <input type = "text" name = "new_addr"/><br/>
-	전공 : <input type = "text" name = "new_major"/><br/>
+	비밀번호 : <input type = "password" name = "new_pwd"/><br/>
+	이메일 : <input type = "text" name = "new_addr"/><br/>
 	<input type = "submit" name = "btn_update" value = "정보 수정">
 </form>
 </body>

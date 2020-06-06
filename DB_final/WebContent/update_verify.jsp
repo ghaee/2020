@@ -18,9 +18,21 @@ try{
 	Class.forName(dbdriver);
 	myConn=DriverManager.getConnection(dburl, user, passwd);
 	
-	pstmt = myConn.prepareStatement("update students set s_pwd=? where s_id='"+session_id+"'");
-	pstmt.setString(1,new_Password);
-	result = pstmt.executeUpdate();
+	if(new_Password != "" && new_address == ""){ //only change pwd
+		pstmt = myConn.prepareStatement("update students set s_pwd=? where s_id='"+session_id+"'");
+		pstmt.setString(1,new_Password);
+		result = pstmt.executeUpdate();
+	}else if(new_Password == "" && new_address !=""){ //only change address
+		pstmt = myConn.prepareStatement("update students set s_addr=? where s_id='"+session_id+"'");
+		pstmt.setString(1,new_address);
+		result = pstmt.executeUpdate();
+	}else if(new_Password != "" && new_address != ""){ //change both info
+		pstmt = myConn.prepareStatement("update students set s_pwd=?,s_addr=? where s_id='"+session_id+"'");
+		pstmt.setString(1,new_Password);
+		pstmt.setString(2,new_address);
+		result = pstmt.executeUpdate();
+	}
+	
 	
 	if(result == 1){
 		%> <script type="text/javascript"> alert("수정 성공"); location.href='update.jsp'; </script> <%  

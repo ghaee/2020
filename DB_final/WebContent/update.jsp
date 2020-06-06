@@ -57,8 +57,6 @@ try{
     
     if(rs != null) try { rs.close(); } catch(SQLException ex) {}
     if(stmt != null) try { stmt.close(); } catch(SQLException ex) {}
-
-    
     if(myConn != null) try { myConn.close(); } catch(SQLException ex) {}
 }%></table>
 <form method="post" action="update_verify.jsp">

@@ -52,6 +52,9 @@ catch(SQLException ex){
 	 
 	response.getWriter().print("<script>alert('"+sMessage+"'); location.href='update.jsp';</script>");
 
+}finally{
+    if(pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+    if(myConn != null) try { myConn.close(); } catch(SQLException ex) {}
 }
 %>
 

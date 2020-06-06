@@ -62,8 +62,8 @@ try{
     if(myConn != null) try { myConn.close(); } catch(SQLException ex) {}
 }%></table>
 <form method="post" action="update_verify.jsp">
-	비밀번호 : <input type = "password" name = "new_pwd"/><br/>
-	이메일 : <input type = "text" name = "new_addr"/><br/>
+	비밀번호 : <input type = "password" name = "new_pwd" value = ""/><br/>
+	이메일 : <input type = "text" name = "new_addr" value = ""/><br/>
 	<input type = "submit" name = "btn_update" value = "정보 수정">
 </form>
 </body>

@@ -23,9 +23,9 @@ try{
 	result = pstmt.executeUpdate();
 	
 	if(result == 1){
-		%> <script> alert("수정 성공"); </script> <%  
+		%> <script type="text/javascript"> alert("수정 성공"); location.href='update.jsp'; </script> <%  
 	}else{
-		%> <script> alert("result == 0"); </script> <%  
+		%> <script type="text/javascript"> alert("result == 0"); history.go(-1); </script> <%  
 	}
 }
 catch(SQLException ex){
@@ -35,8 +35,14 @@ catch(SQLException ex){
 	else if (ex.getErrorCode() == 20003)
 		sMessage="암호에 공란은 입력되지 않습니다.";
 	else sMessage="잠시 후 다시 시도하십시오";
-	%> <script> alert(sMessage); </script> <% 
-}%>
+	
+	response.setContentType("text/html; charset=UTF-8");
+	 
+	response.getWriter().print("<script>alert('"+sMessage+"'); location.href='update.jsp';</script>");
+
+}
+%>
+
 </body>
 </html>
 

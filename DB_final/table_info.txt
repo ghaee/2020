@@ -1,0 +1,41 @@
+CREATE TABLE COURSE(
+	c_year NUMBER(4) NOT NULL,
+	c_semes NUMBER(1) NOT NULL,
+	p_id NUMBER(3),
+	c_id NUMBER(8),
+	c_id_no NUMBER(1),
+	c_name VARCHAR2(20),
+	c_unit NUMBER(1),
+	c_personnel NUMBER(3),
+	c_type VARCHAR2(9),
+	c_major VARCHAR2(12),
+	c_language VARCHAR2(9),
+	CONSTRAINT course_pk PRIMARY KEY (c_id,c_id_no),
+	CONSTRAINT course_fk  FOREIGN KEY (p_id) REFERENCES Professor (p_id)
+);
+INSERT INTO COURSE VALUES (2020,1,101,21000083,2,'영어쓰기와읽기',3,20,'교필','교양학부','영어');
+INSERT INTO COURSE VALUES (2020,1,301,21002313,1,'매스미디어와사회',3,25,'교핵','미디어학부','');
+INSERT INTO COURSE VALUES (2020,1,207,21000540,2,'자료구조',3,35,'전필','컴퓨터과학부','영어');
+INSERT INTO COURSE VALUES (2020,2,205,21000557,2,'자바프로그래밍',3,35,'전선','컴퓨터과학부','');
+INSERT INTO COURSE VALUES (2020,2,202,21000558,2,'네트워크보안',3,35,'전선','컴퓨터과학부','');
+INSERT INTO COURSE VALUES (2020,2,201,21003183,2,'데이터베이스설계와질의',3,35,'전선','컴퓨터과학부','');
+INSERT INTO COURSE VALUES (2020,1,203,21003946,1,'컴퓨터과학의이해',3,55,'교핵','컴퓨터과학부','');
+INSERT INTO COURSE VALUES (2020,2,204,21002144,1,'프로그래밍개론1',3,55,'교핵','컴퓨터과학부','');
+INSERT INTO COURSE VALUES (2020,1,302,21000803,1,'생활속식품이야기',3,55,'교핵','식품영양학과','');
+INSERT INTO COURSE VALUES (2020,1,303,21000428,1,'인간과우주',3,200,'교핵','나노물리학과','');
+
+
+insert into professor values (101,'쿠퍼 소피','숙명','교양학부');
+insert into professor values (301,'서희정','숙명','미디어학부');
+insert into professor values (207,'유석종','숙명','컴과');
+insert into professor values (302,'김보람','숙명','식품영양학과');
+insert into professor values (303,'정홍','숙명','나노물리학과');
+
+
+CREATE TABLE ENROLL(
+	s_id VARCHAR2(10),
+	c_id NUMBER(8),
+	c_id_no NUMBER(1),
+	CONSTRAINT enroll_fk_students FOREIGN KEY (s_id) REFERENCES Students(s_id),
+	CONSTRAINT enroll_fk_course FOREIGN KEY (c_id,c_id_no) REFERENCES course(c_id,c_id_no)
+);

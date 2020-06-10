@@ -7,7 +7,8 @@
 <%	
 	String s_id = (String)session.getAttribute("user");
 	String c_id = request.getParameter("c_id");
-	int c_id_no = Integer.parseInt(request.getParameter("c_id_no"));
+	String tmp = request.getParameter("c_id_no").trim();
+	int c_id_no = Integer.parseInt(tmp);
 %>
 <%		
 	Connection myConn = null;    String	result = null;	
@@ -22,6 +23,7 @@
     } catch(SQLException ex) {
 	     System.err.println("SQLException: " + ex.getMessage());
     }
+	
 CallableStatement cstmt = myConn.prepareCall("{call InsertEnroll(?,?,?,?)}");	
 	cstmt.setString(1, s_id);
 	cstmt.setString(2, c_id);

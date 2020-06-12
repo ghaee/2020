@@ -1,0 +1,24 @@
+CREATE OR REPLACE TRIGGER BeforeUpdateStudents
+BEFORE UPDATE OF s_pwd ON students
+FOR EACH ROW
+DECLARE
+	len NUMBER;
+	short_len EXCEPTION;
+	null_len EXCEPTION;
+
+BEGIN
+	SELECT LENGTH(:new.s_pwd)
+	INTO len
+	FROM dual;
+
+	IF(len is null) THEN
+		RAISE null_len;
+	ELSIF(len< 5) THEN
+		RAISE short_len;
+	END IF;
+	EXCEPTION
+		WHEN short_len THEN RAISE_APPLICATION_ERROR(-20002,'4자리 이하 비밀번호');
+		WHEN null_len THEN RAISE_APPLICATION_ERROR(-20003,'비밀번호 공란');
+END;
+/
+

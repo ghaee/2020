@@ -9,7 +9,7 @@
 <br>
 <tr>
 <th>학기년도</th><th>학기</th>
-<th>과목번호</th><th>분반</th><th>과목명</th><th>학점</th><th>정원</th>
+<th>과목번호</th><th>분반</th><th>과목명</th><th>학점</th><th>정원</th><th>여석</th>
 <th>구분</th><th>주관학과</th><th>언어</th><th>수강신청</th>
 </tr>
 <%
@@ -40,6 +40,7 @@ try{
   				String c_name = rs.getString("c_name");
   				int c_unit = rs.getInt("c_unit");		
   				int c_personnel = rs.getInt("c_personnel");
+  				int c_remain = rs.getInt("c_remain");
   				String c_type = rs.getString("c_type");
   				String c_major = rs.getString("c_major");
   				String c_language = rs.getString("c_language");
@@ -49,8 +50,9 @@ try{
   			<td align="center"><%= c_year %></td><td align="center"><%= c_semes %></td>
   		  <td align="center"><%= c_id %></td> <td align="center"><%= c_id_no %></td> 
   		  <td align="center"><%= c_name %></td><td align="center"><%= c_unit %></td>
-  		  <td align="center"><%= c_personnel %></td><td align="center"><%= c_type %></td>
-  		  <td align="center"><%= c_major %></td><td align="center"><%= c_language %></td>
+  		  <td align="center"><%= c_personnel %></td><td align="center"><%= c_remain %></td>
+  		  <td align="center"><%= c_type %></td><td align="center"><%= c_major %></td>
+  		  <td align="center"><%= c_language %></td>
   		  <td align="center"><a href="insert_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>">신청</a></td>
   		</tr>
   		<%

@@ -1,0 +1,11 @@
+CREATE OR REPLACE TRIGGER BeforeUpdateClass
+BEFORE UPDATE ON Class
+FOR EACH ROW
+
+BEGIN
+	DBMS_OUTPUT.PUT_LINE('변경 전 : ' || :old.p_id || '|' || :old.c_id || '|' || :old.c_no || '|' || :old.c_where);
+        	DBMS_OUTPUT.PUT_LINE('변경 후 : ' || :new.p_id || '|' || :new.c_id || '|' || :new.c_no || '|' || :new.c_where);
+	
+END;
+/
+

@@ -1,0 +1,55 @@
+CREATE OR REPLACE PROCEDURE InsertEnroll(
+	p_s_id IN enroll.s_id%TYPE,
+ 	p_c_id IN enroll.c_id%TYPE,
+ 	p_c_id_no IN enroll.c_id_no%TYPE,
+	result OUT VARCHAR2)
+IS
+	v_enroll_cnt NUMBER;
+	v_personnel course.c_personnel %TYPE;
+	v_c_unit course.c_unit %TYPE;
+	v_s_unit students.s_unit%TYPE;
+
+	OVER_PERSONNEL EXCEPTION;
+	OVER_S_UNIT EXCEPTION;
+	DUPLI_TIME EXCEPTION;
+BEGIN
+	BEGIN
+		SELECT COUNT(c_id) INTO v_enroll_cnt 
+		FROM ENROLL WHERE c_id = p_c_id and c_id_no = p_c_id_no;
+	END;
+	
+	BEGIN
+		SELECT c_personnel, c_unit INTO v_personnel, v_c_unit
+		FROM COURSE WHERE c_id = p_c_id and c_id_no = p_c_id_no;
+	END;
+
+	BEGIN
+		SELECT s_unit INTO v_s_unit
+		FROM STUDENTS WHERE s_id = p_s_id;
+	END;
+
+	BEGIN
+		IF(v_enroll_cnt >= v_personnel) THEN
+			RAISE OVER_PERSONNEL;
+		ELSIF( v_s_unit < v_c_unit) THEN
+			RAISE OVER_S_UNIT;
+		ELSE
+			INSERT INTO enroll VALUES(p_s_id,p_c_id,p_c_id_no);
+			COMMIT;
+			UPDATE course SET c_remain = v_personnel -1 WHERE c_id = p_c_id and c_id_no = p_c_id_no;
+			COMMIT;
+			UPDATE students SET s_unit = v_s_unit - v_c_unit WHERE s_id = p_s_id;
+			COMMIT;
+			result := '수강신청 완료';
+		END IF;
+		EXCEPTION
+			WHEN OVER_PERSONNEL THEN
+				result := '정원 초과로 신청할 수 없습니다.';
+			WHEN OVER_S_UNIT THEN
+				result := '수강 학점이 부족합니다.';
+			WHEN DUPLI_TIME THEN
+				result := '같은 시간에 듣는 수업이 있습니다.';
+	END;
+END;
+/
+

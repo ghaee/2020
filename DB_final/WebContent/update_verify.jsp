@@ -18,14 +18,26 @@ try{
 	Class.forName(dbdriver);
 	myConn=DriverManager.getConnection(dburl, user, passwd);
 	
-	pstmt = myConn.prepareStatement("update students set s_pwd=? where s_id='"+session_id+"'");
-	pstmt.setString(1,new_Password);
-	result = pstmt.executeUpdate();
+	if(new_Password != "" && new_address == ""){ //only change pwd
+		pstmt = myConn.prepareStatement("update students set s_pwd=? where s_id='"+session_id+"'");
+		pstmt.setString(1,new_Password);
+		result = pstmt.executeUpdate();
+	}else if(new_Password == "" && new_address !=""){ //only change address
+		pstmt = myConn.prepareStatement("update students set s_addr=? where s_id='"+session_id+"'");
+		pstmt.setString(1,new_address);
+		result = pstmt.executeUpdate();
+	}else if(new_Password != "" && new_address != ""){ //change both info
+		pstmt = myConn.prepareStatement("update students set s_pwd=?,s_addr=? where s_id='"+session_id+"'");
+		pstmt.setString(1,new_Password);
+		pstmt.setString(2,new_address);
+		result = pstmt.executeUpdate();
+	}
+	
 	
 	if(result == 1){
-		%> <script> alert("수정 성공"); </script> <%  
+		%> <script type="text/javascript"> alert("수정 성공"); location.href='update.jsp'; </script> <%  
 	}else{
-		%> <script> alert("result == 0"); </script> <%  
+		%> <script type="text/javascript"> alert("result == 0"); history.go(-1); </script> <%  
 	}
 }
 catch(SQLException ex){
@@ -35,8 +47,17 @@ catch(SQLException ex){
 	else if (ex.getErrorCode() == 20003)
 		sMessage="암호에 공란은 입력되지 않습니다.";
 	else sMessage="잠시 후 다시 시도하십시오";
-	%> <script> alert(sMessage); </script> <% 
-}%>
+	
+	response.setContentType("text/html; charset=UTF-8");
+	 
+	response.getWriter().print("<script>alert('"+sMessage+"'); location.href='update.jsp';</script>");
+
+}finally{
+    if(pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+    if(myConn != null) try { myConn.close(); } catch(SQLException ex) {}
+}
+%>
+
 </body>
 </html>
 

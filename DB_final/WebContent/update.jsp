@@ -6,13 +6,11 @@
    <table width = "100%" border = "1">
       <tr>
             <td>학번</td>
-
             <td>비밀번호</td>
-
             <td>전공</td>
-
             <td>이름</td>
-
+            <td>수강신청 가능 학점</td>
+            <td>학년</td>
             <td>이메일</td>
       </tr>
 <%
@@ -37,15 +35,21 @@ try{
 	stmt = myConn.createStatement();
 	rs = stmt.executeQuery(mySQL);
 	if(rs.next()){
+		String s_id = rs.getString("s_id");
+		String s_pwd = rs.getString("s_pwd");
+		String s_name = rs.getString("s_name");
+		String s_major = rs.getString("s_major");
+		int s_grade = rs.getInt("s_grade");
+		int s_unit = rs.getInt("s_unit");
+		String s_addr = rs.getString("s_addr");
 	%>
-	      <tr>
-	            <td><%= rs.getString("s_id") %></td>
-	            <td><%= rs.getString("s_pwd") %></td>
-	            <td><%= rs.getString("s_name") %></td>
-	            <td><%= rs.getString("s_major") %></td>
-	           	<td><%= rs.getString("s_addr") %></td>
-	      </tr>
-	<%
+  		<tr>
+  		<td align="center"><%= s_id %></td><td align="center"><%= s_pwd %></td>
+  		  <td align="center"><%= s_major %></td><td align="center"><%= s_name %></td>
+  		  <td align="center"><%= s_unit %></td><td align="center"><%= s_grade %></td>
+  		  <td align="center"><%= s_addr %></td>
+  		</tr>
+  		<%
 	}else{
 		
 	}
@@ -57,13 +61,11 @@ try{
     
     if(rs != null) try { rs.close(); } catch(SQLException ex) {}
     if(stmt != null) try { stmt.close(); } catch(SQLException ex) {}
-
-    
     if(myConn != null) try { myConn.close(); } catch(SQLException ex) {}
 }%></table>
 <form method="post" action="update_verify.jsp">
-	비밀번호 : <input type = "password" name = "new_pwd"/><br/>
-	이메일 : <input type = "text" name = "new_addr"/><br/>
+	비밀번호 : <input type = "password" name = "new_pwd" value = ""/><br/>
+	이메일 : <input type = "text" name = "new_addr" value = ""/><br/>
 	<input type = "submit" name = "btn_update" value = "정보 수정">
 </form>
 </body>

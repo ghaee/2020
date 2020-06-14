@@ -9,7 +9,6 @@
             <td>비밀번호</td>
             <td>전공</td>
             <td>이름</td>
-            <td>수강신청 가능 학점</td>
             <td>학년</td>
             <td>이메일</td>
       </tr>
@@ -40,14 +39,12 @@ try{
 		String s_name = rs.getString("s_name");
 		String s_major = rs.getString("s_major");
 		int s_grade = rs.getInt("s_grade");
-		int s_unit = rs.getInt("s_unit");
 		String s_addr = rs.getString("s_addr");
 	%>
   		<tr>
   		<td align="center"><%= s_id %></td><td align="center"><%= s_pwd %></td>
   		  <td align="center"><%= s_major %></td><td align="center"><%= s_name %></td>
-  		  <td align="center"><%= s_unit %></td><td align="center"><%= s_grade %></td>
-  		  <td align="center"><%= s_addr %></td>
+  		  <td align="center"><%= s_grade %></td><td align="center"><%= s_addr %></td>
   		</tr>
   		<%
 	}else{

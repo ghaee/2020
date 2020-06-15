@@ -1,0 +1,25 @@
+CREATE OR REPLACE FUNCTION DeleteEnroll(
+	p_s_id enroll.s_id%TYPE,
+	p_c_id  enroll.c_id%TYPE,
+	p_c_id_no  enroll.c_id_no%TYPE
+)
+RETURN VARCHAR2
+IS
+	result VARCHAR2(20);
+	v_c_unit course.c_unit%TYPE;
+
+BEGIN
+	BEGIN
+		select c_unit into v_c_unit 
+		from course
+		where c_id = p_c_id and c_id_no = p_c_id_no;
+	END;
+	DELETE FROM enroll WHERE s_id = p_s_id and c_id = p_c_id and c_id_no = p_c_id_no;
+	COMMIT;
+	UPDATE students set s_unit = s_unit + v_c_unit;
+	COMMIT;
+	UPDATE course set c_remain = c_remain+1;
+	result :='수강 취소';
+     	RETURN result;
+END;
+/

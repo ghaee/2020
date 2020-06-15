@@ -11,7 +11,7 @@
 <th>학기년도</th><th>학기</th>
 <th>과목번호</th><th>분반</th><th>과목명</th><th>학점</th><th>정원</th><th>여석</th>
 <th>구분</th><th>주관학과</th><th>언어</th><th>교수</th><th>장소</th><th>요일</th><th>시작시간</th><th>종료시간</th>
-
+<th>신청</th>
 </tr>
 <%
 String dbdriver = "oracle.jdbc.driver.OracleDriver";
@@ -52,6 +52,11 @@ try{
   				String c_stime = rs.getString("c_stime");
   				String c_etime = rs.getString("c_etime");
   				if(c_language == null) c_language = "";
+  				if(p_name == null) p_name = "미정";
+  				if(c_where == null) c_where = "미정";
+  				if(c_day == null) c_day = "미정";
+  				if(c_stime == null) c_stime = "미정";
+  				if(c_etime == null) c_etime = "미정";
   		%>
   		<tr>
   			<td align="center"><%= c_year %></td><td align="center"><%= c_semes %></td>

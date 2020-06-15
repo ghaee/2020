@@ -5,6 +5,7 @@
 학생 정보
    <table width = "100%" border = "1">
       <tr>
+      		<td>수강 가능한 학점</td>
             <td>학번</td>
             <td>비밀번호</td>
             <td>전공</td>
@@ -34,6 +35,7 @@ try{
 	stmt = myConn.createStatement();
 	rs = stmt.executeQuery(mySQL);
 	if(rs.next()){
+		int s_unit = rs.getInt("s_unit");
 		String s_id = rs.getString("s_id");
 		String s_pwd = rs.getString("s_pwd");
 		String s_name = rs.getString("s_name");
@@ -41,7 +43,7 @@ try{
 		int s_grade = rs.getInt("s_grade");
 		String s_addr = rs.getString("s_addr");
 	%>
-  		<tr>
+  		<tr><td align="center"><%= s_unit %></td>
   		<td align="center"><%= s_id %></td><td align="center"><%= s_pwd %></td>
   		  <td align="center"><%= s_major %></td><td align="center"><%= s_name %></td>
   		  <td align="center"><%= s_grade %></td><td align="center"><%= s_addr %></td>

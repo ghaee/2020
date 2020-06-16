@@ -15,22 +15,20 @@ if (mysqli_connect_errno($con))
 //POST 값을 읽어온다.
 $u_email=isset($_POST['u_email']) ? $_POST['u_email'] : ''; 
 $title=isset($_POST['title']) ? $_POST['title'] : ''; 
-$scene=isset($_POST['scene']) ? $_POST['scene'] : ''; 
 $location=isset($_POST['location']) ? $_POST['location'] : ''; 
-$address=isset($_POST['address']) ? $_POST['address'] : ''; 
-$image=isset($_POST['image']) ? $_POST['image'] : ''; 
 
 
 
-if ($u_email !="" and $title !="" and $scene !="" and $location !="" and $address !=""){   
+
+if ($u_email !="" and $title !="" and $location !=""){   
   
-    $sql="insert into Bookmark_StudioInsert
-    values ('$u_email','$scene','$location','$address','$title','$image')";  
+    $sql="delete from Bookmark_StudioInsert
+        where u_email = '$u_email' and location = '$location' and title = '$title'";  
     
     $result=mysqli_query($con,$sql);  
 
     if($result){  
-       echo "결과를 추가했습니다.";  
+       echo "보관함에서 삭제했습니다.";  
     }  
     else{  
        echo "SQL문 처리중 에러 발생 : "; 
@@ -56,10 +54,7 @@ if (!$android){
       <form action="<?php $_PHP_SELF ?>" method="POST">
          u_email: <input type = "text" name = "u_email" />
          title: <input type = "text" name = "title" />
-         scene: <input type = "text" name = "scene" />
          location: <input type = "text" name = "location" />
-         address: <input type = "text" name = "address" />
-         image: <input type = "text" name = "image" />
          <input type = "submit" />
       </form>
    

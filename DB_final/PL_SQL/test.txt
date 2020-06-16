@@ -1,0 +1,33 @@
+CREATE OR REPLACE PROCEDURE TEST(
+	p_s_id IN enroll.s_id%TYPE,
+	result OUT VARCHAR2)
+IS
+	total NUMBER := 0;
+	CURSOR time_chk(v_s_id enroll.s_id%TYPE) 
+	IS
+	SELECT DISTINCT  e.s_id, t.c_day,t.c_stime,t.c_etime
+	FROM class_time t
+ 	LEFT OUTER JOIN enroll e
+ 	ON e.c_id = t.c_id and e.c_id_no = t.c_id_no
+ 	WHERE e.s_id = v_s_id;
+
+BEGIN
+
+	FOR list IN time_chk(p_s_id) 
+	LOOP
+		IF(list.c_day = '화') THEN 
+			IF(list.c_stime BETWEEN '09:00' and '10:15') THEN
+				DBMS_OUTPUT.PUT_LINE(list.c_stime || '중복');
+			END IF;
+		END IF;
+	END LOOP;
+	
+	
+END;
+/
+
+SELECT DISTINCT  e.s_id, t.c_day,t.c_stime,t.c_etime
+	FROM class_time t
+	LEFT OUTER JOIN enroll e
+	ON e.c_id = t.c_id and e.c_id_no = t.c_id_no
+	WHERE e.s_id = '11';

@@ -7,7 +7,7 @@ String new_Password=request.getParameter("new_pwd");
 String new_address=request.getParameter("new_addr");
 String chk_Password = request.getParameter("chk_pwd");
 
-out.println(new_Password + chk_Password);
+//out.println(new_Password + chk_Password);
 String dbdriver = "oracle.jdbc.driver.OracleDriver";
 String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
 String user = "db1510188";

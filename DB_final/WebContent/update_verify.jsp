@@ -5,34 +5,26 @@
 <%
 String new_Password=request.getParameter("new_pwd");
 String new_address=request.getParameter("new_addr");
+String chk_Password = request.getParameter("chk_pwd");
 
+out.println(new_Password + chk_Password);
 String dbdriver = "oracle.jdbc.driver.OracleDriver";
 String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
 String user = "db1510188";
 String passwd = "test";
-
 int result = 0;
 PreparedStatement pstmt = null;
 Connection myConn = null;
+
 try{
 	Class.forName(dbdriver);
 	myConn=DriverManager.getConnection(dburl, user, passwd);
 	
-	if(new_Password != "" && new_address == ""){ //only change pwd
-		pstmt = myConn.prepareStatement("update students set s_pwd=? where s_id='"+session_id+"'");
-		pstmt.setString(1,new_Password);
-		result = pstmt.executeUpdate();
-	}else if(new_Password == "" && new_address !=""){ //only change address
-		pstmt = myConn.prepareStatement("update students set s_addr=? where s_id='"+session_id+"'");
-		pstmt.setString(1,new_address);
-		result = pstmt.executeUpdate();
-	}else if(new_Password != "" && new_address != ""){ //change both info
-		pstmt = myConn.prepareStatement("update students set s_pwd=?,s_addr=? where s_id='"+session_id+"'");
-		pstmt.setString(1,new_Password);
-		pstmt.setString(2,new_address);
-		result = pstmt.executeUpdate();
-	}
-	
+
+	pstmt = myConn.prepareStatement("update students set s_pwd=?,s_addr=? where s_id='"+session_id+"'");
+	pstmt.setString(1,new_Password);
+	pstmt.setString(2,new_address);
+	result = pstmt.executeUpdate();
 	
 	if(result == 1){
 		%> <script type="text/javascript"> alert("수정 성공"); location.href='update.jsp'; </script> <%  
@@ -43,7 +35,7 @@ try{
 catch(SQLException ex){
 	String sMessage; 
 	if (ex.getErrorCode() == 20002)
-		sMessage="암호는 4자리 이상이어야 합니다";
+		sMessage="암호는 5자리 이상이어야 합니다";
 	else if (ex.getErrorCode() == 20003)
 		sMessage="암호에 공란은 입력되지 않습니다.";
 	else sMessage="잠시 후 다시 시도하십시오";

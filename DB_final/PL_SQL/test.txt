@@ -31,3 +31,4 @@ SELECT DISTINCT  e.s_id, t.c_day,t.c_stime,t.c_etime
 	LEFT OUTER JOIN enroll e
 	ON e.c_id = t.c_id and e.c_id_no = t.c_id_no
 	WHERE e.s_id = '11';
+exec InsertEnroll('11',21000803,1,'월','10:30','11:15','수','10:30','11:15',:result);

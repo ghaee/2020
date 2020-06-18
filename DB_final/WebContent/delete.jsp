@@ -1,7 +1,7 @@
 <%@ page language= "java" contentType ="text/html; charset=UTF-8" pageEncoding ="UTF-8"%> 
 <%@ page import="java.sql.*" %>
 
-<html><head><title> 수강신청 조회 </title></head>
+<html><head><title> 수강신청 취소</title></head>
 <body>
 
 <%	

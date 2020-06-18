@@ -44,12 +44,12 @@ if(month <= 6){
 try{
 	Class.forName(dbdriver);
     myConn=DriverManager.getConnection(dburl, user, passwd);
-    
+    //t.c_day, t.c_stime, t.c_etime,, t.c_stime, t.c_etime, t.c_day
   	//mySQL = "select * from course where c_semes = 1 and c_id not in (select c_id from enroll where s_id='" + session_id + "') order by c_id ASC";
   	//mySQL = "select cour.*,p.name,cl.c_where, t.seq,t.c_day, t.c_stime,t.c_etime from course cour  left outer join class cl on cour.p_id = cl.p_id and cour.c_id = cl.c_id and cour.c_id_no = cl.c_id_no left outer join class_time t on cour.c_id = t.c_id and cour.c_id_no = t.c_id_no left outer join professor p on p.p_id = cour.p_id where c_year = "+year+" and c_semes = "+semes+" and cour.c_id not in (select e.c_id from enroll e where s_id='" + session_id + "') order by t.seq ASC";
   	mySQL = "select COUR.C_YEAR ,COUR.C_SEMES, p.name, COUR.C_ID, COUR.C_ID_NO,"
   				+"COUR.C_NAME, COUR.C_UNIT, COUR.C_PERSONNEL, COUR.C_REMAIN, COUR.C_TYPE,"
-  				+"COUR.C_MAJOR, COUR.C_LANGUAGE,"
+  				+"COUR.C_MAJOR, COUR.C_LANGUAGE,  "
   				+"LISTAGG(t.C_DAY ||  t.C_STIME || '~' || t.C_ETIME || '(' || CL.C_WHERE || ')' ,', ')"
   				+"WITHIN GROUP(ORDER BY T.C_DAY DESC) AS \"TIME\""
   			+"from course cour left outer join class cl "
@@ -81,10 +81,10 @@ try{
   				String time = rs.getString("TIME");
   				//String c_where = rs.getString("c_where");
   				//String c_day = rs.getString("c_day");
-  				//String c_stime = rs.getString("time");
+  				//String c_stime = rs.getString("c_stime");
   				//String c_etime = rs.getString("c_etime");
   				if(c_language == null) c_language = "";
-  				//if(p_name == null) p_name = "미정";
+  				if(p_name == null) p_name = "미정";
   				//if(c_where == null) c_where = "미정";
   				//if(c_day == null) c_day = "미정";
   				//if(c_stime == null) c_stime = "미정";
@@ -100,7 +100,8 @@ try{
   		  <td align="center"><%= p_name %></td><td align="center"><%= time %>
   		  <%-- <td align="center"><%= c_where %></td> --%><%-- <td align="center"><%= c_day %></td> --%>
   		  <%-- <td align="center"><%= c_stime %></td> --%><%-- <td align="center"><%= c_etime %></td> --%>
-  		  <td align="center"><a href="insert_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>&time=<%= time%>">신청</a></td>
+  		  <%-- <td align="center"><a href="insert_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>&c_day=<%=c_day%>&c_stime=<%=c_stime%>&c_etime=<%=c_etime%>">신청</a></td> --%>
+  		<td align="center"><a href="insert_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>&time=<%=time%>">신청</a></td>
   		</tr>
   		<%
   				}while(rs.next());

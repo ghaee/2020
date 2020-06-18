@@ -2,9 +2,12 @@ CREATE OR REPLACE PROCEDURE InsertEnroll(
 	p_s_id IN enroll.s_id%TYPE,
  	p_c_id IN enroll.c_id%TYPE,
  	p_c_id_no IN enroll.c_id_no%TYPE,
-	p_c_day IN class_time.c_day%TYPE,
-	p_c_stime IN class_time.c_stime%TYPE,
-	p_c_etime IN class_time.c_etime%TYPE,
+	p_c_day1 IN class_time.c_day%TYPE,
+	p_c_stime1 IN class_time.c_stime%TYPE,
+	p_c_etime1 IN class_time.c_etime%TYPE,
+	p_c_day2 IN class_time.c_day%TYPE,
+	p_c_stime2 IN class_time.c_stime%TYPE,
+	p_c_etime2 IN class_time.c_etime%TYPE,
 	result OUT VARCHAR2)
 IS
 	v_enroll_cnt NUMBER;
@@ -43,11 +46,17 @@ BEGIN
 	BEGIN
 		FOR list IN time_chk(p_s_id) 
 		LOOP
-			IF(list.c_day = p_c_day) THEN 
-				IF(list.c_stime BETWEEN p_c_stime and p_c_etime) THEN
+			IF(list.c_day = p_c_day1 OR list.c_day = p_c_day2) THEN 
+				IF(list.c_stime BETWEEN p_c_stime1 AND p_c_etime1) THEN
 					RAISE DUPLI_TIME;
 				END IF;
-				IF(list.c_etime BETWEEN p_c_stime and p_c_etime) THEN
+				IF(list.c_etime BETWEEN p_c_stime1 AND p_c_etime1) THEN
+					RAISE DUPLI_TIME;
+				END IF;
+				IF(list.c_stime BETWEEN p_c_stime2 AND p_c_etime2) THEN
+					RAISE DUPLI_TIME;
+				END IF;
+				IF(list.c_etime BETWEEN p_c_stime2 AND p_c_etime2) THEN
 					RAISE DUPLI_TIME;
 				END IF;
 			END IF;

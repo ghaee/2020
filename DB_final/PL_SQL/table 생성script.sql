@@ -9,9 +9,12 @@
    CONSTRAINT students_pk PRIMARY KEY(S_ID)
 );
 
-INSERT INTO STUDENTS VALUES('11',123456,'test','abcd','test@',18,4);
-INSERT INTO STUDENTS VALUES('22',123456,'미디어학부','noon','noon@naver.com',21,4);
-
+INSERT INTO STUDENTS VALUES('11',123456,'컴퓨터과학부','가나다','hello@naver.com',21,4);
+INSERT INTO STUDENTS VALUES('22',123456,'미디어학부','기니디','noon@gmail.com',21,4);
+INSERT INTO STUDENTS VALUES('33',123456,'한국어문학부','고노도','gonodo@naver.com',21,1);
+INSERT INTO STUDENTS VALUES('44',123456,'체육학과','구누두','gunudu@sm.ac.kr',21,2);
+INSERT INTO STUDENTS VALUES('55',123456,'법학과','그느드','geuneudeu@naver.com',24,3);
+INSERT INTO STUDENTS VALUES('66',123456,'나노물리학과','거너더','myemail@naver.com',24,4);
 
 CREATE TABLE professor(
    P_ID NUMBER(3),
@@ -30,6 +33,8 @@ insert into professor values (205,'박숙영','숙명','컴과');
 insert into professor values (202,'박영훈','숙명','컴과');
 insert into professor values (201,'심준호','숙명','컴과');
 insert into professor values (204,'이광수','숙명','컴과');
+insert into professor values (102,'고대선','숙명','체육학과');
+insert into professor values (103,'이욱한','숙명','교양학부');
 
 CREATE TABLE COURSE(
    c_year NUMBER(4) NOT NULL,
@@ -47,16 +52,18 @@ CREATE TABLE COURSE(
    CONSTRAINT course_pk PRIMARY KEY (c_id,c_id_no),
    CONSTRAINT course_fk  FOREIGN KEY (p_id) REFERENCES Professor (p_id)
 );
-INSERT INTO COURSE VALUES (2020,1,101,21000083,2,'영어쓰기와읽기',3,20,20,'교필','교양학부','영어');
-INSERT INTO COURSE VALUES (2020,1,301,21002313,1,'매스미디어와사회',3,25,25,'교핵','미디어학부','');
+INSERT INTO COURSE VALUES (2020,1,101,21000083,2,'영어쓰기와읽기',3,5,5,'교필','교양학부','영어');
+INSERT INTO COURSE VALUES (2020,1,301,21002313,1,'매스미디어와사회',3,5,5,'교핵','미디어학부','');
 INSERT INTO COURSE VALUES (2020,1,207,21000540,2,'자료구조',3,35,35,'전필','컴퓨터과학부','영어');
-INSERT INTO COURSE VALUES (2020,1,302,21000803,1,'생활속식품이야기',3,55,55,'교핵','식품영양학과','');
-INSERT INTO COURSE VALUES (2020,1,303,21000428,1,'인간과우주',3,200,200,'교핵','나노물리학과','');
-INSERT INTO COURSE VALUES (2020,2,205,21000557,2,'자바프로그래밍',3,35,35,'전선','컴퓨터과학부','');
-INSERT INTO COURSE VALUES (2020,2,202,21000558,2,'네트워크보안',3,35,35,'전선','컴퓨터과학부','');
-INSERT INTO COURSE VALUES (2020,2,201,21003183,2,'데베설',3,35,35,'전선','컴퓨터과학부','');
-INSERT INTO COURSE VALUES (2020,1,201,21003946,1,'컴퓨터과학의이해',3,55,55,'교핵','컴퓨터과학부','');
-INSERT INTO COURSE VALUES (2020,2,204,21002144,1,'프로그래밍개론1',3,55,55,'교핵','컴퓨터과학부','');
+INSERT INTO COURSE VALUES (2020,1,302,21000803,1,'생활속식품이야기',3,5,5,'교핵','식품영양학과','');
+INSERT INTO COURSE VALUES (2020,1,303,21000428,1,'인간과우주',3,5,5,'교핵','나노물리학과','');
+INSERT INTO COURSE VALUES (2020,2,205,21000557,2,'자바프로그래밍',3,5,5,'전선','컴퓨터과학부','');
+INSERT INTO COURSE VALUES (2020,2,202,21000558,2,'네트워크보안',3,5,5,'전선','컴퓨터과학부','');
+INSERT INTO COURSE VALUES (2020,2,201,21003183,2,'데베설',3,5,5,'전선','컴퓨터과학부','');
+INSERT INTO COURSE VALUES (2020,1,201,21003946,1,'컴퓨터과학의이해',3,5,5,'교핵','컴퓨터과학부','');
+INSERT INTO COURSE VALUES (2020,2,204,21002144,1,'프로그래밍개론1',3,5,5,'교핵','컴퓨터과학부','');
+INSERT INTO COURSE VALUES (2020,1,102,21001234,2,'교양풋살',2,5,5,'교일','체육학과','');
+INSERT INTO COURSE VALUES (2020,2,103,21001235,3,'철학개론',3,5,5,'교일','교양학부','');
 
 
 CReATE TABLE CLASS(
@@ -78,6 +85,8 @@ insert into class values (202,21000558,2,'진리관401');
 insert into class values (201,21003946,1,'명신관402');
 insert into class values (204,21002144,1,'명신관403');
 insert into class values (201,21003183,2,'명신관404');
+insert into class values (102,21001234,2,'다목적관102');
+insert into class values (103,21001235,1,'순헌관506');
 
 create table class_time(
   seq number(3),
@@ -92,21 +101,26 @@ create table class_time(
 
 insert into class_time values (1,21002313,1,'화','09:00','10:15');
 insert into class_time values (3,21000540,2,'화','09:00','10:15');
-insert into class_time values (5,21000803,1,'월','10:30','11:15');
-insert into class_time values (7,21000428,1,'월','10:30','11:15');
-insert into class_time values (9,21000557','2',월','11:30','12:45');
+insert into class_time values (5,21000803,1,'월','10:30','11:45');
+insert into class_time values (7,21000428,1,'월','10:30','11:45');
+insert into class_time values (9,21000557,2,'월','11:30','12:45');
 insert into class_time values (11,21000558,2,'화','13:00','14:15');
 insert into class_time values (13,21003946,1,'화','14:30','15:45');
 insert into class_time values (15,21002144,1,'월','14:30','15:45');
 insert into class_time values (17,21003183,2,'수','09:00','12:45');
+insert into class_time values (19,21000083,2,'화','11:00','12:15');
+insert into class_time values (21,21001235,1,'화','16:00','17:15');
 insert into class_time values (2,21002313,1,'목','09:00','10:15');
 insert into class_time values (4,21000540,2,'목','09:00','10:15');
-insert into class_time values (6,21000803,1,'수','10:30','11:15');
-insert into class_time values (8,21000428,1,'수','10:30','11:15');
+insert into class_time values (6,21000803,1,'수','10:30','11:45');
+insert into class_time values (8,21000428,1,'수','10:30','11:45');
 insert into class_time values (10,21000557,2,'수','11:30','12:45');
 insert into class_time values (12,21000558,2,'목','13:00','14:15');
 insert into class_time values (14,21003946,1,'목','14:30','15:45');
 insert into class_time values (16,21002144,1,'수','14:30','15:45');
+insert into class_time values (18,21000083,2,'월','11:00','12:15');
+insert into class_time values (20,21001234,2,'월','12:00','13:50');
+insert into class_time values (22,21001235,1,'목','16:00','17:15');
 
 --20200618 조회 쿼리 수정 - 요일에 따라 여러row나오는 것 한줄로 합침
 select COUR.C_YEAR,COUR.C_SEMES,COUR.C_ID,COUR.C_ID_NO,
@@ -121,4 +135,4 @@ on cour.c_id = t.c_id and cour.c_id_no = t.c_id_no
 left outer join professor p on p.p_id = cour.p_id 
 GROUP BY COUR.C_YEAR,COUR.C_SEMES,COUR.P_ID,COUR.C_ID,COUR.C_ID_NO,
 COUR.C_NAME, COUR.C_UNIT, COUR.C_PERSONNEL, COUR.C_REMAIN, COUR.C_TYPE,
-COUR.C_MAJOR, COUR.C_LANGUAGE;
+COUR.C_MAJOR, COUR.C_LANGUAGE, P.NAME;

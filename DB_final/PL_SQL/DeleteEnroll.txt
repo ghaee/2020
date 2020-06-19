@@ -5,21 +5,22 @@ CREATE OR REPLACE FUNCTION DeleteEnroll(
 )
 RETURN VARCHAR2
 IS
-	result VARCHAR2(20);
-	v_c_unit course.c_unit%TYPE;
+	result VARCHAR2(50);
+	v_course course%ROWTYPE;
+	
 
 BEGIN
 	BEGIN
-		select c_unit into v_c_unit 
+		select c_name,c_unit into v_course.c_name, v_course.c_unit 
 		from course
 		where c_id = p_c_id and c_id_no = p_c_id_no;
 	END;
 	DELETE FROM enroll WHERE s_id = p_s_id and c_id = p_c_id and c_id_no = p_c_id_no;
 	COMMIT;
-	UPDATE students set s_unit = s_unit + v_c_unit;
+	UPDATE students set s_unit = s_unit +v_course.c_unit ;
 	COMMIT;
 	UPDATE course set c_remain = c_remain+1;
-	result :='수강 취소';
+	result := v_course.c_name || '을(를) 취소했습니다.';
      	RETURN result;
 END;
 /

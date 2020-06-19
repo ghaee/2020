@@ -48,7 +48,7 @@ try{
     //t.c_day, t.c_stime, t.c_etime,, t.c_stime, t.c_etime, t.c_day
   	//mySQL = "select * from course where c_semes = 1 and c_id not in (select c_id from enroll where s_id='" + session_id + "') order by c_id ASC";
   	//mySQL = "select cour.*,p.name,cl.c_where, t.seq,t.c_day, t.c_stime,t.c_etime from course cour  left outer join class cl on cour.p_id = cl.p_id and cour.c_id = cl.c_id and cour.c_id_no = cl.c_id_no left outer join class_time t on cour.c_id = t.c_id and cour.c_id_no = t.c_id_no left outer join professor p on p.p_id = cour.p_id where c_year = "+year+" and c_semes = "+semes+" and cour.c_id not in (select e.c_id from enroll e where s_id='" + session_id + "') order by t.seq ASC";
-  	mySQL = "select COUR.C_YEAR ,COUR.C_SEMES, p.name, COUR.C_ID, COUR.C_ID_NO,"
+  	/* mySQL = "select COUR.C_YEAR ,COUR.C_SEMES, p.name, COUR.C_ID, COUR.C_ID_NO,"
   				+"COUR.C_NAME, COUR.C_UNIT, COUR.C_PERSONNEL, COUR.C_REMAIN, COUR.C_TYPE,"
   				+"COUR.C_MAJOR, COUR.C_LANGUAGE,  "
   				+"LISTAGG(t.C_DAY ||  t.C_STIME || '~' || t.C_ETIME || '(' || CL.C_WHERE || ')' ,', ')"
@@ -61,7 +61,11 @@ try{
   			+"where COUR.C_YEAR = " + year+ " and COUR.C_SEMES = " + semes + " and cour.c_id not in (select e.c_id from enroll e where s_id='" + session_id + "') "
   			+"GROUP BY COUR.C_YEAR,COUR.C_SEMES,COUR.P_ID,COUR.C_ID,COUR.C_ID_NO,"
   				+"COUR.C_NAME, COUR.C_UNIT, COUR.C_PERSONNEL, COUR.C_REMAIN, COUR.C_TYPE,"
-  				+"COUR.C_MAJOR, COUR.C_LANGUAGE, p.name";
+  				+"COUR.C_MAJOR, COUR.C_LANGUAGE, p.name"; */
+  				// select * from InsertView iv
+  				//where iv.c_year = 2020 and iv.c_semes = 1 and iv.c_id not in (select c_id from enroll where s_id='11');
+  	mySQL = "select * from InsertView iv "+
+  			"where iv.c_year = " + year+ " and iv.c_semes = " + semes + " and iv.c_id not in (select e.c_id from enroll e where e.s_id ='" + session_id + "')";
   	stmt = myConn.createStatement();
   	rs = stmt.executeQuery(mySQL);
   	

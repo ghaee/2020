@@ -47,41 +47,42 @@ BEGIN
 	BEGIN
 		FOR list IN time_chk(p_s_id) 
 		LOOP
-		
-			IF(list.c_day = p_c_day1 OR list.c_day = p_c_day2) THEN 
-				
+			IF(list.c_day = p_c_day1) THEN 
 				IF(p_c_stime1 BETWEEN list.c_stime AND  list.c_etime ) THEN	
-					DBMS_OUPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_stime1 || ' <= ' || list.c_etime);
+					DBMS_OUTPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_stime1 || ' <= ' || list.c_etime);
 					RAISE DUPLI_TIME;
-				END IF;
-				IF(p_c_stime2 BETWEEN list.c_stime AND  list.c_etime ) THEN	
-					DBMS_OUPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_stime2 || ' <= ' || list.c_etime);
-					RAISE DUPLI_TIME;
+					
 				END IF;
 				IF(p_c_etime1 BETWEEN list.c_stime AND  list.c_etime ) THEN
-					DBMS_OUPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_etime1 || ' <= ' || list.c_etime);
+					DBMS_OUTPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_etime1 || ' <= ' || list.c_etime);
 					RAISE DUPLI_TIME;
 				END IF;
-				IF(p_c_etime2 BETWEEN list.c_stime AND  list.c_etime ) THEN
-					DBMS_OUPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_etime2 || ' <= ' || list.c_etime);
-					RAISE DUPLI_TIME;
-				END IF;
-
-
 				IF(list.c_stime BETWEEN p_c_stime1 AND  p_c_etime1) THEN
-					DBMS_OUPUT.PUT_LINE(p_c_stime1 || ' <= ' || list.c_stime || ' <= ' || p_c_etime1);
-					RAISE DUPLI_TIME;
-				END IF;
-				IF(list.c_stime BETWEEN p_c_stime2 AND  p_c_etime2) THEN
-					DBMS_OUPUT.PUT_LINE(p_c_stime2 || ' <= ' || list.c_stime || ' <= ' || p_c_etime2);
+					DBMS_OUTPUT.PUT_LINE(p_c_stime1 || ' <= ' || list.c_stime || ' <= ' || p_c_etime1);
 					RAISE DUPLI_TIME;
 				END IF;
 				IF(list.c_etime BETWEEN p_c_stime1 AND  p_c_etime1) THEN
-					DBMS_OUPUT.PUT_LINE(p_c_stime1 || ' <= ' || list.c_etime || ' <= ' || p_c_etime1);
+					DBMS_OUTPUT.PUT_LINE(p_c_stime1 || ' <= ' || list.c_etime || ' <= ' || p_c_etime1);
+					RAISE DUPLI_TIME;
+				END IF;
+			END IF;
+			IF(list.c_day = p_c_day2) THEN
+				result := ' IN IF ' || ' D2: ' || p_c_day2 || ' list.c_day ' || list.c_day;
+				IF(p_c_stime2 BETWEEN list.c_stime AND  list.c_etime ) THEN	
+					DBMS_OUTPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_stime2 || ' <= ' || list.c_etime);
+					RAISE DUPLI_TIME;
+				END IF;
+				IF(p_c_etime2 BETWEEN list.c_stime AND  list.c_etime ) THEN
+					DBMS_OUTPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_etime2 || ' <= ' || list.c_etime);
+					RAISE DUPLI_TIME;
+				END IF;
+
+				IF(list.c_stime BETWEEN p_c_stime2 AND  p_c_etime2) THEN
+					DBMS_OUTPUT.PUT_LINE(p_c_stime2 || ' <= ' || list.c_stime || ' <= ' || p_c_etime2);
 					RAISE DUPLI_TIME;
 				END IF;
 				IF(list.c_etime BETWEEN p_c_stime2 AND  p_c_etime2) THEN
-					DBMS_OUPUT.PUT_LINE(p_c_stime2 || ' <= ' || list.c_etime || ' <= ' || p_c_etime2);
+					DBMS_OUTPUT.PUT_LINE(p_c_stime2 || ' <= ' || list.c_etime || ' <= ' || p_c_etime2);
 					RAISE DUPLI_TIME;
 				END IF;
 			END IF;
@@ -90,9 +91,14 @@ BEGIN
 			RAISE OVER_PERSONNEL;
 		ELSIF( v_s_unit < v_course.c_unit) THEN
 			RAISE OVER_S_UNIT;
-		ELSE
-			
-			result := '수강신청 완료';
+		ELSE 
+			INSERT INTO enroll VALUES(p_s_id,p_c_id,p_c_id_no);
+			COMMIT;
+			UPDATE course SET c_remain = v_course.c_personnel -1 WHERE c_id = p_c_id and c_id_no = p_c_id_no;
+			COMMIT;
+			UPDATE students SET s_unit = v_s_unit - v_course.c_unit WHERE s_id = p_s_id;
+			COMMIT;
+
 		END IF;
 		EXCEPTION
 			WHEN DUPLI_TIME THEN
@@ -105,9 +111,4 @@ BEGIN
 END;
 /
 
-INSERT INTO enroll VALUES(p_s_id,p_c_id,p_c_id_no);
-			COMMIT;
-			UPDATE course SET c_remain = v_course.c_personnel -1 WHERE c_id = p_c_id and c_id_no = p_c_id_no;
-			COMMIT;
-			UPDATE students SET s_unit = v_s_unit - v_course.c_unit WHERE s_id = p_s_id;
-			COMMIT;
+

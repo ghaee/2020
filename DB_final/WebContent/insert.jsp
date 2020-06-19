@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.sql.*"  %>
+<%@ page import="java.net.*"  %>
 <%@ page import="java.util.Calendar"  %>
 <%@ page import="java.text.SimpleDateFormat" %>
 
@@ -98,7 +99,8 @@ try{
   		  <td align="center"><%= c_type %></td><td align="center"><%= c_major %></td>
   		  <td align="center"><%= c_language %></td>
   		  <td align="center"><%= p_name %></td><td align="center"><%= time %>
-  		  <%-- <td align="center"><%= c_where %></td> --%><%-- <td align="center"><%= c_day %></td> --%>
+  			<!-- String p_time = encodeURI("c_id=" + c_id + "&c_id_no=" + c_id_no + "&time=" + time); -->
+  		  <%-- <td align="center"><%= c_where %></td> --%><%-- <td align="center"><%= c_day %></td> c_id=<%= c_id %>&c_id_no=<%= c_id_no %>&time=<%=time%>--%>
   		  <%-- <td align="center"><%= c_stime %></td> --%><%-- <td align="center"><%= c_etime %></td> --%>
   		  <%-- <td align="center"><a href="insert_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>&c_day=<%=c_day%>&c_stime=<%=c_stime%>&c_etime=<%=c_etime%>">신청</a></td> --%>
   		<td align="center"><a href="insert_verify.jsp?c_id=<%= c_id %>&c_id_no=<%= c_id_no %>&time=<%=time%>">신청</a></td>

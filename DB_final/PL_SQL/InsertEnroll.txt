@@ -14,8 +14,7 @@ CREATE OR REPLACE PROCEDURE InsertEnroll(
 	result OUT VARCHAR2)
 IS
 	v_enroll_cnt NUMBER;
-	v_personnel course.c_personnel %TYPE;
-	v_c_unit course.c_unit %TYPE;
+	v_course course%ROWTYPE;
 	v_s_unit students.s_unit%TYPE;
 
 	OVER_PERSONNEL EXCEPTION;
@@ -36,7 +35,7 @@ BEGIN
 	END;
 	
 	BEGIN
-		SELECT c_personnel, c_unit INTO v_personnel, v_c_unit
+		SELECT c_personnel, c_unit INTO v_course.c_personnel, v_course.c_unit
 		FROM COURSE WHERE c_id = p_c_id and c_id_no = p_c_id_no;
 	END;
 
@@ -51,63 +50,64 @@ BEGIN
 		
 			IF(list.c_day = p_c_day1 OR list.c_day = p_c_day2) THEN 
 				
-
-				IF(p_c_stime1 BETWEEN list.c_stime AND  list.c_etime ) THEN
-					
+				IF(p_c_stime1 BETWEEN list.c_stime AND  list.c_etime ) THEN	
+					DBMS_OUPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_stime1 || ' <= ' || list.c_etime);
 					RAISE DUPLI_TIME;
 				END IF;
-				IF(p_c_stime2 BETWEEN list.c_stime AND  list.c_etime ) THEN
-					
+				IF(p_c_stime2 BETWEEN list.c_stime AND  list.c_etime ) THEN	
+					DBMS_OUPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_stime2 || ' <= ' || list.c_etime);
 					RAISE DUPLI_TIME;
 				END IF;
 				IF(p_c_etime1 BETWEEN list.c_stime AND  list.c_etime ) THEN
-					
+					DBMS_OUPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_etime1 || ' <= ' || list.c_etime);
 					RAISE DUPLI_TIME;
 				END IF;
 				IF(p_c_etime2 BETWEEN list.c_stime AND  list.c_etime ) THEN
-					
+					DBMS_OUPUT.PUT_LINE(list.c_stime || ' <= ' || p_c_etime2 || ' <= ' || list.c_etime);
 					RAISE DUPLI_TIME;
 				END IF;
 
 
 				IF(list.c_stime BETWEEN p_c_stime1 AND  p_c_etime1) THEN
-					
+					DBMS_OUPUT.PUT_LINE(p_c_stime1 || ' <= ' || list.c_stime || ' <= ' || p_c_etime1);
 					RAISE DUPLI_TIME;
 				END IF;
 				IF(list.c_stime BETWEEN p_c_stime2 AND  p_c_etime2) THEN
-					
+					DBMS_OUPUT.PUT_LINE(p_c_stime2 || ' <= ' || list.c_stime || ' <= ' || p_c_etime2);
 					RAISE DUPLI_TIME;
 				END IF;
 				IF(list.c_etime BETWEEN p_c_stime1 AND  p_c_etime1) THEN
-					
+					DBMS_OUPUT.PUT_LINE(p_c_stime1 || ' <= ' || list.c_etime || ' <= ' || p_c_etime1);
 					RAISE DUPLI_TIME;
 				END IF;
 				IF(list.c_etime BETWEEN p_c_stime2 AND  p_c_etime2) THEN
-					
+					DBMS_OUPUT.PUT_LINE(p_c_stime2 || ' <= ' || list.c_etime || ' <= ' || p_c_etime2);
 					RAISE DUPLI_TIME;
 				END IF;
 			END IF;
 		END LOOP;
-		IF(v_enroll_cnt >= v_personnel) THEN
+		IF(v_enroll_cnt >= v_course.c_personnel) THEN
 			RAISE OVER_PERSONNEL;
-		ELSIF( v_s_unit < v_c_unit) THEN
+		ELSIF( v_s_unit < v_course.c_unit) THEN
 			RAISE OVER_S_UNIT;
 		ELSE
-			INSERT INTO enroll VALUES(p_s_id,p_c_id,p_c_id_no);
-			COMMIT;
-			UPDATE course SET c_remain = v_personnel -1 WHERE c_id = p_c_id and c_id_no = p_c_id_no;
-			COMMIT;
-			UPDATE students SET s_unit = v_s_unit - v_c_unit WHERE s_id = p_s_id;
-			COMMIT;
+			
 			result := '수강신청 완료';
 		END IF;
 		EXCEPTION
+			WHEN DUPLI_TIME THEN
+				result := '같은 시간에 듣는 수업이 있습니다.';
 			WHEN OVER_PERSONNEL THEN
 				result := '정원 초과로 신청할 수 없습니다.';
 			WHEN OVER_S_UNIT THEN
 				result := '수강 학점이 부족합니다.';
-			WHEN DUPLI_TIME THEN
-				result := '같은 시간에 듣는 수업이 있습니다.';
 	END;
 END;
 /
+
+INSERT INTO enroll VALUES(p_s_id,p_c_id,p_c_id_no);
+			COMMIT;
+			UPDATE course SET c_remain = v_course.c_personnel -1 WHERE c_id = p_c_id and c_id_no = p_c_id_no;
+			COMMIT;
+			UPDATE students SET s_unit = v_s_unit - v_course.c_unit WHERE s_id = p_s_id;
+			COMMIT;

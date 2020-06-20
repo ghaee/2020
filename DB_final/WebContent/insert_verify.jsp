@@ -15,31 +15,36 @@
 	int discard = time.indexOf("(");
 	int discard2 = time.lastIndexOf("(");
 	
-	String day1 = time.substring(0,discard);
-	String day2 = time.substring(idx+1,discard2);
+	String day1_day = "";
+	String day1_time = "";
+	String day1_stime = "";
+	String day1_etime = "";
 	
-	String day1_day = day1.replaceAll("[0-9:~]","");
-	String day1_time = day1.replaceAll("[^0-9:~]","");
-	String day1_stime = day1_time.substring(0,5);
-	String day1_etime = day1_time.substring(6);
+	String day2_day = "";
+	String day2_time = "";
+	String day2_stime = "";
+	String day2_etime = "";
 	
-	String day2_day = day2.replaceAll("[0-9:~ ]","");
-	String day2_time = day2.replaceAll("[^0-9:~]","");
-	String day2_stime = day2_time.substring(0,5);
-	String day2_etime = day2_time.substring(6);
+	if(time.equals("사이버강의")){
+		
+	}else{
+		String day1 = time.substring(0,discard);
+		String day2 = time.substring(idx+1,discard2);
+		
+		day1_day = day1.replaceAll("[0-9:~]","");
+		day1_time = day1.replaceAll("[^0-9:~]","");
+		day1_stime = day1_time.substring(0,5);
+		day1_etime = day1_time.substring(6);
+		
+		day2_day = day2.replaceAll("[0-9:~ ]","");
+		day2_time = day2.replaceAll("[^0-9:~]","");
+		day2_stime = day2_time.substring(0,5);
+		day2_etime = day2_time.substring(6);
+	}
 
 %>
 <%		 
-out.println("c_id : " + c_id);
-out.println("c_id_no" + c_id_no);
-out.println("day1_day:"+ day1_day);
-out.println("day1_stime: "+ day1_stime);
-out.println("day1_etime: "+ day1_etime); 
 
-
-out.println("day2_day:"+ day2_day);
-out.println("day2_stime: "+ day2_stime);
-out.println("day2_etime: "+ day2_etime);
 
 Connection myConn = null;    String	result = null;	
 String dbdriver = "oracle.jdbc.driver.OracleDriver";

@@ -1,4 +1,4 @@
---CREATE TABLE STUDENTS(
+CREATE TABLE STUDENTS(
    S_ID VARCHAR2(10),
     S_PWD VARCHAR2(30),
     S_MAJOR VARCHAR2(30),
@@ -18,23 +18,22 @@ INSERT INTO STUDENTS VALUES('66',123456,'나노물리학과','거너더','myemai
 
 CREATE TABLE professor(
    P_ID NUMBER(3),
-    NAME VARCHAR2(10),
-    UNIV VARCHAR2(10),
+    NAME VARCHAR2(13),
     MAJOR VARCHAR2(20),
    CONSTRAINT prof_pk PRIMARY KEY(p_id)
 );
-insert into professor values (101,'쿠퍼 소피','숙명','교양학부');
-insert into professor values (301,'서희정','숙명','미디어학부');
-insert into professor values (207,'유석종','숙명','컴과');
-insert into professor values (302,'김보람','숙명','식품영양학과');
-insert into professor values (303,'정홍','숙명','나노물리학과');
-insert into professor values (111,'test','숙명','major');
-insert into professor values (205,'박숙영','숙명','컴과');
-insert into professor values (202,'박영훈','숙명','컴과');
-insert into professor values (201,'심준호','숙명','컴과');
-insert into professor values (204,'이광수','숙명','컴과');
-insert into professor values (102,'고대선','숙명','체육학과');
-insert into professor values (103,'이욱한','숙명','교양학부');
+insert into professor values (101,'쿠퍼 소피','교양학부');
+insert into professor values (301,'서희정','미디어학부');
+insert into professor values (207,'유석종','컴과');
+insert into professor values (302,'김보람','식품영양학과');
+insert into professor values (303,'정홍','나노물리학과');
+insert into professor values (111,'test','major');
+insert into professor values (205,'박숙영','컴과');
+insert into professor values (202,'박영훈','컴과');
+insert into professor values (201,'심준호','컴과');
+insert into professor values (204,'이광수','컴과');
+insert into professor values (102,'고대선','체육학과');
+insert into professor values (103,'이욱한','교양학부');
 
 CREATE TABLE COURSE(
    c_year NUMBER(4) NOT NULL,

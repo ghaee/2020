@@ -25,9 +25,7 @@
 	String day2_stime = "";
 	String day2_etime = "";
 	
-	if(time.equals("사이버강의")){
-		
-	}else{
+	if(!time.equals("사이버강의")){
 		String day1 = time.substring(0,discard);
 		String day2 = time.substring(idx+1,discard2);
 		
@@ -41,7 +39,6 @@
 		day2_stime = day2_time.substring(0,5);
 		day2_etime = day2_time.substring(6);
 	}
-
 %>
 <%		 
 

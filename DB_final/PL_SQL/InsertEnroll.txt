@@ -17,6 +17,7 @@ IS
 	v_c_day class_time.c_day%TYPE;
 	v_course course%ROWTYPE;
 	v_s_unit students.s_unit%TYPE;
+
 	OVER_PERSONNEL EXCEPTION;
 	OVER_S_UNIT EXCEPTION;
 	DUPLI_TIME EXCEPTION;

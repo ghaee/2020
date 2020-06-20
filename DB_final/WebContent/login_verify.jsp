@@ -22,7 +22,6 @@ try{
 
 	String mySQL="select s_id from students where s_id='" + userID + "'and s_pwd='" + userPassword + "'";
 	stmt = myConn.createStatement();
-	stmt.executeUpdate(mySQL);
 	rs = stmt.executeQuery(mySQL);
 	if(rs.next()){
 		rs.close();

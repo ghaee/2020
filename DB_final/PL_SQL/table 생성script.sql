@@ -128,6 +128,16 @@ insert into class_time values (17,21000083,1,'월','11:00','12:15');
 insert into class_time values (23,21001234,2,'월','12:00','13:50');
 insert into class_time values (22,21000540,1,'목','13:00','14:15');
 
+
+CREATE TABLE ENROLL(
+	s_id VARCHAR2(10),
+	c_id NUMBER(8),
+	c_id_no NUMBER(1),
+	CONSTRAINT enroll_pk PRIMARY KEY (s_id,c_id,c_id_no),
+	CONSTRAINT enroll_fk_students FOREIGN KEY (s_id) REFERENCES Students(s_id),
+	CONSTRAINT enroll_fk_course FOREIGN KEY (c_id,c_id_no) REFERENCES course(c_id,c_id_no)
+);
+
 --20200618 조회 쿼리 수정 - 요일에 따라 여러row나오는 것 한줄로 합침
 select COUR.C_YEAR,COUR.C_SEMES,COUR.C_ID,COUR.C_ID_NO,
 COUR.C_NAME, COUR.C_UNIT, COUR.C_PERSONNEL, COUR.C_REMAIN, COUR.C_TYPE,

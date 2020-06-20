@@ -37,7 +37,7 @@ IS
  	WHERE e.s_id = v_s_id;
 BEGIN
 	BEGIN
-		SELECT COUNT(c_id) INTO v_enroll_cnt 
+		SELECT COUNT(*) INTO v_enroll_cnt 
 		FROM ENROLL WHERE c_id = p_c_id and c_id_no = p_c_id_no;
 	END;
 	
@@ -119,7 +119,11 @@ BEGIN
 		ELSE 
 			INSERT INTO enroll VALUES(p_s_id,p_c_id,p_c_id_no);
 			COMMIT;
-			UPDATE course SET c_remain = v_course.c_personnel -1 WHERE c_id = p_c_id and c_id_no = p_c_id_no;
+			BEGIN
+				SELECT COUNT(*) INTO v_enroll_cnt 
+				FROM ENROLL WHERE c_id = p_c_id and c_id_no = p_c_id_no;
+			END;
+			UPDATE course SET c_remain = v_course.c_personnel - v_enroll_cnt WHERE c_id = p_c_id and c_id_no = p_c_id_no;
 			COMMIT;
 			UPDATE students SET s_unit = v_s_unit - v_course.c_unit WHERE s_id = p_s_id;
 			COMMIT;

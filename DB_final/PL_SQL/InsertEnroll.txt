@@ -17,11 +17,17 @@ IS
 	v_c_day class_time.c_day%TYPE;
 	v_course course%ROWTYPE;
 	v_s_unit students.s_unit%TYPE;
-
 	OVER_PERSONNEL EXCEPTION;
 	OVER_S_UNIT EXCEPTION;
 	DUPLI_TIME EXCEPTION;
+	DUPLI_CLASS EXCEPTION;
 
+	CURSOR class_chk
+	IS
+	SELECT c_id
+	FROM enroll e
+	WHERE s_id = p_s_id;	
+ 
 	CURSOR time_chk(v_s_id enroll.s_id%TYPE) 
 	IS
 	SELECT DISTINCT  e.s_id, t.c_day,t.c_stime,t.c_etime
@@ -46,6 +52,16 @@ BEGIN
 	END;
 	
 	BEGIN
+		OPEN class_chk;
+		LOOP
+		FETCH class_chk INTO v_course.c_id;
+		EXIT WHEN class_chk%NOTFOUND;
+			IF (v_course.c_id = p_c_id) THEN
+				RAISE DUPLI_CLASS;
+			END IF;
+		END LOOP;
+		CLOSE class_chk;
+
 		FOR list IN time_chk(p_s_id) 
 		LOOP
 			IF(list.c_day = p_c_day1) THEN 
@@ -116,6 +132,8 @@ BEGIN
 				result := '정원 초과로 신청할 수 없습니다.';
 			WHEN OVER_S_UNIT THEN
 				result := '수강 학점이 부족합니다.';
+			WHEN DUPLI_CLASS THEN
+				result := '이미 신청한 강의입니다.';
 	END;
 END;
 /

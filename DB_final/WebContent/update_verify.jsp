@@ -29,7 +29,7 @@ try{
 	if(result == 1){
 		%> <script type="text/javascript"> alert("수정 성공"); location.href='update.jsp'; </script> <%  
 	}else{
-		%> <script type="text/javascript"> alert("result == 0"); history.go(-1); </script> <%  
+		%> <script type="text/javascript"> alert("SQL-update fail"); history.go(-1); </script> <%  
 	}
 }
 catch(SQLException ex){
@@ -38,7 +38,10 @@ catch(SQLException ex){
 		sMessage="암호는 5자리 이상이어야 합니다";
 	else if (ex.getErrorCode() == 20003)
 		sMessage="암호에 공란은 입력되지 않습니다.";
+	else if(ex.getErrorCode() == 20004)
+		sMessage="이메일이 비어있습니다.";
 	else sMessage="잠시 후 다시 시도하십시오";
+	
 	
 	response.setContentType("text/html; charset=UTF-8");
 	 

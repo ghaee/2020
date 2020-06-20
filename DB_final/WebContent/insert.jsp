@@ -45,9 +45,9 @@ if(month <= 6){
 try{
 	Class.forName(dbdriver);
     myConn=DriverManager.getConnection(dburl, user, passwd);
-  	mySQL = "select * from InsertView iv "+
-  			"where iv.c_year = " + year+ " and iv.c_semes = " + semes
-  			+" and (iv.c_id,iv.c_id_no) not in (select c_id, c_id_no from enroll where s_id = '"+session_id+"') ";
+  	mySQL = "select * from TotalCourseVIew tc "+
+  			"where tc.c_year = " + year+ " and tc.c_semes = " + semes
+  			+" and (tc.c_id,tc.c_id_no) not in (select c_id, c_id_no from enroll where s_id = '"+session_id+"') ";
   	stmt = myConn.createStatement();
   	rs = stmt.executeQuery(mySQL);
   	

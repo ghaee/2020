@@ -67,6 +67,7 @@ try{
   				String time = rs.getString("TIME");
   				if(c_language == null) c_language = "";
   				if(p_name == null) p_name = "미정";
+  				if(time.equals("~()")) time = "사이버강의";
   		%>
   		<tr>
   			<td align="center"><%= c_year %></td><td align="center"><%= c_semes %></td>

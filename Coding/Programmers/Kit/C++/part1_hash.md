@@ -1,4 +1,4 @@
-##C++ Kit Part 1 : Hash / 완주하지 못한 선수
+#### C++ Kit Part 1 : Hash / 완주하지 못한 선수
 
 제한 사항 중 
 completion의 길이는 participant 의 길이보다 1 작다 -> 완주 못한 사람은 딱 한 명이다.  
@@ -51,7 +51,7 @@ string solution(vector<string> participant, vector<string> completion) {
 }
 
 ```
-**기존에 내가 풀었던 방법**
+**기존에 내가 풀었던 방법**  
 hash를 쓰지 않았음
 ```c++
 #include <string>

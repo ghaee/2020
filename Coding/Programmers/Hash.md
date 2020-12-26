@@ -24,3 +24,37 @@ string solution(vector<string> participant, vector<string> completion) {
     return answer;
 }
 ```
+
+#### 전화번호 목록  
+```c++
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <iostream>
+using namespace std;
+
+bool solution(vector<string> phone_book) {
+    bool answer = true;
+    string str = "";
+    unordered_map<string,int> d;
+    
+    for(auto& i: phone_book){
+        str = "";
+        for(int j = 0; j < i.size(); ++j){
+            str += i[j];
+            d[str]++;
+            //이로써 d에는 phone_book 인덱스 외의 키도 갖게된다.
+        }
+    }
+    
+    for(auto& i: phone_book){
+        //d가 아닌 phone_book인 이유 : d의 수많은 키 중에서 phone_book에 있는 키만 뽑아보겠다.
+        if(d[i] > 1){
+            answer = false;
+            break;
+        }
+    }
+    return answer;
+}
+
+```

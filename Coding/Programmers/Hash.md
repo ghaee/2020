@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <iostream>
+
 using namespace std;
 
 string solution(vector<string> participant, vector<string> completion) {
@@ -30,7 +30,7 @@ string solution(vector<string> participant, vector<string> completion) {
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include <iostream>
+
 using namespace std;
 
 bool solution(vector<string> phone_book) {
@@ -64,7 +64,7 @@ bool solution(vector<string> phone_book) {
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include <iostream>
+
 
 using namespace std;
 

@@ -58,3 +58,31 @@ bool solution(vector<string> phone_book) {
 }
 
 ```
+
+#### 위장  
+```c++
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <iostream>
+
+using namespace std;
+
+int solution(vector<vector<string>> clothes) {
+    int answer = 1;
+    unordered_map<string,int> d;
+
+    for(auto& i: clothes){
+        d[i[1]]++;
+    }
+    
+    for(auto& i: d){
+        answer *= i.second+1; //각 종류당 이름의 수
+        //headgear_1,headgear_2,headgear_x & eyewear_1,eyewear_x ==> 3 * 2
+    }
+    return answer-1;
+    //headgear_x,eyewear_x 경우의 수 제외
+}
+
+```
+

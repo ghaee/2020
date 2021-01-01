@@ -151,5 +151,5 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
 ```  
 
 **vector<pair> 구조 이해**  
-![vector<pair>](./vector<pair>.png)    
+![vector<pair>](./vector_pair.png)    
 

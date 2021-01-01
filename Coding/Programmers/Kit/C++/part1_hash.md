@@ -3,7 +3,7 @@
 제한 사항 중 
 completion의 길이는 participant 의 길이보다 1 작다 -> 완주 못한 사람은 딱 한 명이다.  
 동명이인의 경우를 잘 생각해야함  
-
+ 
 >-> n에 비례하는 알고리즘 
 
 solution  
@@ -14,7 +14,9 @@ solution
 
 
 C++ STL에서의 Hash Table을 구현해놓은 컨테이너  
-**map vs unordered_map**  
+**map vs unordered_map**   
+
+map : key의 순서 정보를 유지하면서 오버헤드 있음
 
 |                | std::map                   | std::unordered_map |
 |----------------|----------------------------|--------------------|
@@ -52,7 +54,7 @@ string solution(vector<string> participant, vector<string> completion) {
 
 ```
 **기존에 내가 풀었던 방법**  
-hash를 쓰지 않았음
+hash를 쓰지 않았음 
 ```c++
 #include <string>
 #include <vector>

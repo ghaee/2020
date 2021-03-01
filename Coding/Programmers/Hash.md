@@ -151,5 +151,86 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
 ```  
 
 **vector<pair> 구조 이해**  
-![vector<pair>](./vector_pair.png)    
+![vector<pair>](./vector_pair.png)  
+
+#### 베스트 앨범(map,set ver.)
+
+```c++
+#include <string>
+#include <vector>
+#include <map>
+#include <set>
+#include <algorithm>
+using namespace std;
+
+vector<int> solution(vector<string> genres, vector<int> plays) {
+    vector<int> answer;
+    /*
+    i : 고유번호
+     - genres[i] 고유번호 i의 장르 - plays[i] 고유번호 i의 재생 횟수
+    1. 장르별 총 재생횟수를 구한다 (가장 많이 재생된 장르 찾기 위해 정렬 필)
+    2. 같은 장르 안에서 재생순 1~2위를 구한다. 재생순위 동일시 고유번호 낮은 순 (각 장르당 최대 2곡만 선별, 재생횟수 정렬 필)
+    */
+
+    map<string, map<int, set<int>, greater<int>>> list_map;
+    //이중 map으로 내림차순 정렬구현, set : 중복없이 정렬
+    //<"장르",<재생횟수,고유번호>>
+
+    map<string, int> max;
+
+    map<int, string, greater<int>> sort_max;
+    
+    int i = 0;
+ 
+    for_each(genres.begin(), genres.end(), [&](string& s){  //데이터 분류 작업
+        if(list_map.find(s) == list_map.end()){
+            map<int, set<int>, greater<int>> m;  //plays 내림차순 정렬 
+            set<int> index;
+ 
+            index.insert(i);
+            max.emplace(s, plays[i]);
+            m.emplace(plays[i], index);
+            list_map.emplace(s, m); 
+        }else{
+            map<int, set<int>, greater<int>>::iterator itr;
+            if((itr = list_map[s].find(plays[i])) == list_map[s].end()){
+                set<int> index;
+                index.insert(i);
+                list_map[s].emplace(plays[i], index);
+                max[s] += plays[i]; 
+            }else{
+                itr->second.insert(i);
+                max[s] += plays[i]; 
+            }
+        }
+        i++;
+    }); 
+ 
+    for_each(max.begin(), max.end(), [&](pair<string, int> itr){    //max값 찾기
+        sort_max.emplace(itr.second, itr.first);     
+    });
+ 
+    for_each(sort_max.begin(), sort_max.end(), [&](pair<int, string> s){    //검색
+         map<int, set<int>, greater<int>>::iterator m = list_map[s.second].begin();
+         set<int>::iterator itr = m->second.begin();;
+         
+         if(list_map[s.second].size() == 1){    //장르에 대한 재생횟수 종류가 1개일 경우
+            answer.push_back(*itr);
+            return;
+         }
+         
+         for(int i = 0; i < 2; i++){        //각 장르당 2개만 찾으면 되므로
+            if(m->second.size() > 1 && i == 0){        //plays가 중복될 경우(중복된 경우에 재생횟수가 가장 큰녀석만 해당됨)
+                answer.push_back(*(itr++));
+                answer.push_back(*(itr++));
+                return;
+            }
+            answer.push_back(*itr);        //중복된것이 없다면 조건대로 검색
+            itr = (++m)->second.begin();
+         }
+    });
+    return answer;
+}
+
+``` 
 

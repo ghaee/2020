@@ -8,7 +8,7 @@ int main(int argc, char** argv){
 
 	for(int j = 1; j <= 5; ++j){
 		int n, i, a;
-		int min = 2147000000, max = -2147000000; //int형의 가장 작은 값
+		int min = 2147000000, max = -2147000000; //int형의 최대최소 범위
 		int result, answer;
 
 		ifstream fin;
@@ -27,12 +27,12 @@ int main(int argc, char** argv){
 		result = max - min;
 
 		string tmp = "out" + to_string(j) + ".txt";
-		const char * filename = tmp.c_str();
+		const char * filename = tmp.c_str(); //tmp의 버퍼주소를 반환하는 c_str()
 		ifstream fout;
 		fout.open(filename);
 		fout >> answer;
 
-		cout << argv[j] << " "<< filename << endl;
+		cout << "case " << j << " : ";
 		if(result == answer){
 			cout <<"CORRECT! the answer is " << answer << endl;
 		}else{

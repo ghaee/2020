@@ -41,9 +41,9 @@ int main(int argc, char** argv){
 
 		fout >> answer;
 
-		double time = (double)(end - start)/CLOCKS_PER_SEC;
+		double time = (double)(end - start);///CLOCKS_PER_SEC;
 
-		cout << "case " << j <<  " | Time: " << time <<endl;
+		cout << "case " << j <<  " | Time: " << time  <<" ms"<<endl;
 		if(result == answer){
 			cout <<"CORRECT! "<<" the answer is " << answer << endl;
 		}else{

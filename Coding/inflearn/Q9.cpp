@@ -24,11 +24,11 @@ int main(int argc, char** argv){
 			}
 		}
 
-		for(int i = 1; i < num; ++i){ //정답 형식 맞추기
-			result.append(to_string(cnt[i]));
-			result.push_back(' ');
+		for(int i = 1; i <= num; ++i){ //정답 형식 맞추기
+			result += to_string(cnt[i]);
+			result += ' ';
 		}
-		result += to_string(cnt[num]);
+		result.erase(result.size()-1);
 
 		string tmp = "out" + to_string(j) + ".txt";
 		const char * filename = tmp.c_str(); //tmp의 버퍼주소를 반환하는 c_str()

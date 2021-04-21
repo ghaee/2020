@@ -16,8 +16,8 @@ int main(int argc, char ** argv){
             else s.pop();
         }
     }
-    if(s.empty()) cout << "YES\n" <<endl;
-    else cout << "NO\n" << endl;
+    if(s.empty()) cout << "YES\n";
+    else cout << "NO\n";
     //system("PAUSE");
     return 0;
 }

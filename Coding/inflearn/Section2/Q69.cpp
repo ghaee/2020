@@ -5,12 +5,12 @@
 using namespace std;
 
 // bfs 큐 구현하기
-int queue[100];
+int queue[100]; //전역변수 선언 시 0으로 초기화 + 힙영역에 자리하기 때문
 vector<int> map[8];
 int front = -1, back = -1, ch[8];
 int main(int argc, char** argv){
     int n, m, tmp;
-    
+
     for(int i=1; i <= 6; ++i){
         cin >> n >> m;
         map[n].push_back(m); // n <-> m 연결되어있음을 표현

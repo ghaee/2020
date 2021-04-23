@@ -12,7 +12,7 @@ int main(int argc, char** argv){
 
     cin >> n >> m;
 
-    for(int i = 0; i < m; ++ i){
+    for(int i = 1; i <= m; ++ i){
         cin >> n1 >> n2 >> w;
         map[n1][n2] = w;
     } 

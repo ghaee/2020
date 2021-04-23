@@ -5,23 +5,29 @@
 
 using namespace std;
 
-int check[11];
+int check[11], path[11];
 int n, m, sum=0, cnt=0;
-int dfs(int k, int sum){
+void dfs(int k, int sum){
     if(k == n+1){
         if(sum == m){
             cnt++;
+            for(int i = 1; i < k; ++i){
+                cout << path[i] <<" ";
+            }
+            cout << endl;
         }
     } 
     else{
         //+
+        path[k] = check[k];
         dfs(k+1, sum+check[k]);
         //-
+        path[k] = -check[k];
         dfs(k+1, sum-check[k]);
         //x
+        path[k] = 0;
         dfs(k+1, sum);
     }
-    return cnt;
 }
 
 int main(int argc, char** argv){
@@ -32,6 +38,6 @@ int main(int argc, char** argv){
     dfs(1,0);
     if(cnt == 0) cout << -1;
     else cout << cnt;
-    //system("PAUSE");
+    system("PAUSE");
     return 0;
 }

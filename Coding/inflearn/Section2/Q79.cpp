@@ -4,53 +4,61 @@
 #include <algorithm>
 
 using namespace std;
-
-//Prim MST with priority_queue
 /*
+Prim Algorithm (Greedy / MST)
+with priority_queue
 1. set any vertex to start with MST
 2. select the next vertex at minimum cost
 3. iterate til the MST has (v-1) edges * v : the number of vetices
 */
-int mst[30];
-struct MakeEdge{
-    int v, cost;
-    MakeEdge(int b, int c){
-        v = b;
-        cost = c;
-    }
-    bool operator < (const MakeEdge &b) const {
-        return cost > b.cost; //min heap
-    }
+
+int *mst;
+
+struct Edge{
+	int v1, cost;
+	Edge(int a, int c){
+		v1 = a;  cost = c;
+	}
+	bool operator < (const Edge &b) const {
+		return cost > b.cost;
+	}
 };
 
-int main(int argc, char** argv){
-    int v, e, a, b, c, sum = 0;
-    priority_queue<MakeEdge> pq;
-    vector<pair<int,int>> map[30];
+int main(){
+	priority_queue<Edge> pq;
+	int n, e, v1, v2, w, cnt = 0;
+	cin >> n  >> e;
 
-    cin >> v >> e;
-    for(int i = 1; i <= e; ++i){
-        cin >> a >> b >> c;
+	mst = new int[n+1]{0,}; //initialize to 0
+    vector<pair<int,int>> map[n+1];
+	for(int i = 1; i <= e; ++i){
+		cin >> v1 >> v2 >> w;
 
-        // a<--c-->b 인접리스트 만들기
-        map[a].push_back(make_pair(b,c));
-        map[b].push_back(make_pair(a,c));
-    }   
-    pq.push(MakeEdge(1,0)); //임의의 시작 vertex
-    
-    while(!pq.empty()){
-        MakeEdge tmp = pq.top();
-        pq.pop();
-        int vertex = tmp.v;
-        int cost = tmp.cost;
-        if(mst[vertex] == 0){ 
-            sum += cost;
-            mst[vertex] = 1; //including mst
-            for(int i = 0; i < map[vertex].size(); ++i){ //인접 vertex 큐에 추가
-                pq.push(MakeEdge(map[vertex][i].first,map[vertex][i].second));
-            }
-        }
-    }
-    cout << sum << endl;
-    return 0;
+		//v1 <---- weight ----> v2 undirected graph
+		map[v1].push_back(make_pair(v2,w));
+		map[v2].push_back(make_pair(v1,w));
+	}
+
+	pq.push(Edge(1,0));
+
+	while(!pq.empty()){
+		Edge tmp = pq.top();
+		int vertex = tmp.v1;
+		int weight = tmp.cost;
+
+		pq.pop();
+
+		if(mst[vertex] == 0){ //not included in the minumum spanning tree yet
+			cnt += weight;
+			mst[vertex] = 1;
+			for(int i = 0; i < map[vertex].size(); ++i){ //현재 vertex에서 뻗을 수 있는 인접 vertex 추가
+				pq.push(Edge(map[vertex][i].first,map[vertex][i].second));
+			}
+		}
+	}
+
+	cout << cnt << endl;
+    delete[] mst;
+	//system("PAUSE");
+	return 0;
 }

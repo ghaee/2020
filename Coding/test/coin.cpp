@@ -29,7 +29,6 @@ void dfs(int origin, int money, vector<int> costs, int x)
 
         if (a == origin)
             answer = min(answer, sum);
-        return ;
     }
     else
     {
@@ -55,11 +54,13 @@ int solution(int money, vector<int> costs)
 
 int main()
 {
-    //vector<int> costs = {1, 4, 99, 35 , 50, 1000};
-    //cout << solution(4578, costs) << endl;
+    vector<int> costs1 = {1, 4, 99, 35 , 50, 1000};
+    cout << solution(4578, costs1) << endl;
 
-    vector<int> costs = {2, 11, 20, 100, 200, 600};
-    cout << solution(1999, costs) << endl;
+    answer = 9999999;
+    vector<int> costs2 = {2, 11, 20, 100, 200, 600};
+    cout << solution(1999, costs2) << endl;
+
     system("PAUSE");
     return 0;
 }
